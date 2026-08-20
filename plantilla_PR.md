@@ -21,5 +21,5 @@ El proyecto necesitaba una base visual uniforme y adaptable antes de comenzar a 
 ## Checklist
 
 - [x] El código compila / corre sin errores
-- [X ] Los commits siguen el estándar
-- [X ] Se actualizó la documentación si aplica
+- [x] Los commits siguen el estándar
+- [x] Se actualizó la documentación si aplica
