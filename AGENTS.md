@@ -111,6 +111,7 @@ Diseñar y desarrollar la primera versión funcional de una plataforma web para 
 * **Calidad de Software Asíncrono:** Implementar patrones asíncronos en JavaScript (`Promises`, `async/await`, `Promise.all`, `try/catch`) asegurando que la interfaz nunca se congele ni bloquee al usuario.
 * **Interfaz Profesional y Consistente:** Implementar toda la señalización visual del sistema (estados, alertas, acciones) mediante iconografía vectorial profesional, sin uso de emojis, garantizando una imagen seria, auditable y consistente en toda la aplicación.
 * **Fidelidad a Mockups:** Construir la interfaz respetando exactamente los mockups aprobados en Stitch (formulario de solicitud, listado/dashboard, detalle con puntaje/justificación, formulario de cumplimiento y panel de alertas), documentando cualquier desviación antes de programarla.
+* **Diseño Responsivo Multiplataforma:** Garantizar que toda la interfaz se visualice y funcione correctamente en computadora, tablet y celular, mediante técnicas de diseño responsivo (CSS media queries, `flexbox`/`grid`, unidades relativas), sin necesidad de aplicaciones nativas adicionales.
 * **Preparación para Escalabilidad de Dominio:** Diseñar la arquitectura de datos y lógica de negocio de forma que en el futuro pueda soportar múltiples zonas francas, autenticación con roles e integración con PROCOMER, sin que su implementación sea obligatoria en esta versión.
 * **Cobertura Total de Requerimientos:** Cumplir con los 22 requerimientos funcionales (RF-01 a RF-22) y los 11 requerimientos no funcionales (RNF-01 a RNF-11) definidos en el documento de requerimientos aprobado.
 * **Colaboración Verificable:** Mantener trazabilidad de autoría real de ambos integrantes del equipo mediante ramas y pull requests documentados en Git y seguimiento visible en Trello.
@@ -143,6 +144,12 @@ Diseñar y desarrollar la primera versión funcional de una plataforma web para 
 * **RES-14 (Iconografía profesional — prohibición de emojis):** Queda **estrictamente prohibido** el uso de emojis (😀, ✅, 🚀, ⚠️, etc.) en cualquier parte de la interfaz, mensajes del sistema, alertas visuales, commits, documentación técnica o comentarios de código. Toda señalización visual (estados, alertas, acciones, iconos de navegación) debe implementarse mediante **librerías de iconos vectoriales (SVG) profesionales**, estilo *outline/line*, con trazo y tamaño consistentes en toda la aplicación. Opciones recomendadas: **Lucide Icons**, **Feather Icons**, **Material Symbols (outlined)** o **Font Awesome (variante light/outline/regular)**. No mezclar más de una librería de iconos en el mismo proyecto.
 * **RES-15 (Estados visuales obligatorios):** Toda operación asíncrona debe reflejar de forma consistente los estados **Cargando**, **Listo** y **Error**, usando iconografía (spinner, check, alerta) además de texto — nunca solo color o solo texto (RNF-10, REGLA-03).
 * **RES-16 (Accesibilidad mínima de iconos):** Todo icono usado como único indicador de estado debe incluir un atributo `aria-label` o texto equivalente oculto, para no depender exclusivamente del color o la forma.
+* **RES-33 (Diseño responsivo obligatorio):** La interfaz debe visualizarse y funcionar correctamente en **computadora (escritorio)**, **tablet** y **celular (smartphone)**. Se debe implementar diseño *responsive* mediante CSS (media queries, unidades relativas, `flexbox`/`grid`) sin depender de aplicaciones nativas ni de plugins adicionales. Como referencia de puntos de quiebre (*breakpoints*):
+  * **Móvil:** hasta 767px de ancho.
+  * **Tablet:** de 768px a 1024px de ancho.
+  * **Escritorio:** a partir de 1025px de ancho.
+
+  Todos los mockups aprobados en Stitch (formulario de solicitud, listado/dashboard, detalle con puntaje/justificación, formulario de cumplimiento y panel de alertas) deben adaptarse a estos tres tamaños sin pérdida de funcionalidad ni de información crítica (RNF-04, RNF-07).
 
 ### 3.3 Restricciones del Alcance (Fuera de Alcance v1.0)
 * **RES-06:** No se debe implementar integración real con sistemas externos oficiales de PROCOMER en esta entrega.
@@ -197,6 +204,7 @@ El agente de Inteligencia Artificial que participe en el desarrollo, asistencia 
 ### 4.5 Diseño Visual y Contenido
 * **REGLA-08 (Sin emojis, iconografía profesional):** El agente nunca debe generar código, textos de interfaz, mensajes de commit o documentación que incluyan emojis. Todo elemento visual de estado, alerta o acción debe implementarse con iconos SVG de una librería profesional consistente (Lucide, Feather, Material Symbols outline o Font Awesome outline), respetando el mismo estilo en toda la aplicación.
 * **REGLA-09 (Fidelidad a mockups):** Antes de programar una pantalla, el agente debe verificar que la implementación propuesta corresponda a los mockups aprobados en Stitch; cualquier desviación debe señalarse explícitamente al equipo antes de codificarla.
+* **REGLA-16 (Diseño responsivo obligatorio):** Todo código de interfaz que el agente genere (HTML/CSS) debe ser responsivo y probarse mentalmente (o mediante comentarios) en los tres tamaños de pantalla definidos: computadora, tablet y celular. El agente no debe entregar maquetación fija en píxeles absolutos sin adaptación a estos tres formatos (RES-33, RNF-04, RNF-07).
 
 ### 4.6 Disciplina de Alcance
 * **REGLA-10 (No implementar fuera de alcance):** El agente no debe implementar, sugerir como obligatorio, ni dejar código "a medio camino" de: integración real con PROCOMER, autenticación JWT/roles de seguridad en base de datos, notificaciones reales por correo/SMS, almacenamiento binario de archivos pesados, panel analítico avanzado de tendencias, o IA generativa que envíe respuestas oficiales sin revisión humana. Estos puntos pertenecen a las fases futuras de la hoja de ruta.
@@ -243,19 +251,28 @@ El agente de Inteligencia Artificial que participe en el desarrollo, asistencia 
   * Cargando → icono de spinner animado vía CSS/SVG, no texto "cargando..." únicamente.
 * **Accesibilidad:** cada icono funcional debe llevar `aria-label` o texto visualmente oculto (`sr-only`) que describa su significado.
 
-### 5.4 Estándares de Código y Git
+### 5.4 Diseño Responsivo (Computadora, Tablet y Celular)
+* **Mobile-first recomendado:** construir primero los estilos base para celular y luego ampliar con media queries hacia tablet y escritorio, evitando sobreescrituras innecesarias.
+* **Puntos de quiebre de referencia:** móvil (hasta 767px), tablet (768px–1024px) y escritorio (desde 1025px), alineados con RES-33.
+* **Layout flexible:** usar `flexbox` y/o `grid` en lugar de anchos fijos en píxeles para contenedores principales (formularios, dashboard, tablas de solicitudes/reportes).
+* **Imágenes e iconos escalables:** los iconos SVG y elementos gráficos deben adaptarse proporcionalmente al tamaño de pantalla sin perder legibilidad ni el `aria-label` asociado.
+* **Tablas y listados adaptables:** el listado/dashboard de solicitudes debe permitir una visualización usable en celular (por ejemplo, colapsando columnas o usando tarjetas apiladas), sin ocultar información crítica del estado o la preclasificación.
+* **Pruebas en los tres formatos:** antes de cerrar una pantalla, verificarla en las herramientas de simulación de dispositivos del navegador para computadora, tablet y celular, además de compararla contra el mockup de Stitch correspondiente.
+
+### 5.5 Estándares de Código y Git
 * **Commits Semánticos:** Utilizar convenciones de commits como `feat:`, `fix:`, `docs:`, `refactor:`, `test:`.
 * **Nombres Descriptivos:** Variables en `camelCase`, constantes globales en `UPPER_SNAKE_CASE` y clases en `PascalCase`.
 * **Nombres de Archivos:** Todo en minúsculas y separado por guiones (e.g., `solicitud-service.js`, `evaluador-ia.js`).
 * **Pull Requests obligatorios:** Ningún cambio se integra directo a `main`/`master`; toda rama individual se fusiona vía Pull Request revisado por el otro integrante (RES-10, RES-31).
 * **Mensajes de commit descriptivos:** Evitar mensajes genéricos como `fix bug`; describir el requerimiento o regla de negocio afectada (p. ej. `feat: aplica umbrales RN-04 a RN-06 en clasificacion.js`).
 
-### 5.5 Pruebas y Verificación
+### 5.6 Pruebas y Verificación
 * **Verificar contra criterios de aceptación:** Antes de cerrar un RF de prioridad Alta, confirmar manualmente el escenario Dado/Cuando/Entonces documentado para ese requerimiento.
 * **Probar el flujo de error de red:** Simular caída de `json-server` y confirmar que la interfaz no se bloquea y muestra un mensaje claro (RF-11, RNF-05).
 * **Probar procesamiento en paralelo:** Validar que `Promise.all` resuelve correctamente múltiples solicitudes/reportes pendientes sin bloquear la interfaz (RF-13, RNF-03).
 * **Probar persistencia tras recarga:** Reiniciar `json-server` y recargar el navegador para confirmar que el estado de una solicitud puede reconstruirse completamente (RF-16, RN-12).
 * **Comparar contra mockups:** Antes de dar por cerrada una pantalla, compararla visualmente con el mockup aprobado en Stitch correspondiente.
+* **Probar diseño responsivo:** Verificar cada pantalla en los tres formatos definidos (computadora, tablet y celular) confirmando que la información y las acciones críticas permanezcan visibles y usables (RES-33).
 
 ---
 
@@ -291,6 +308,10 @@ Esta sección funge como la memoria viva del proyecto **ZoFranca CR**, documenta
 * Se incorporó formalmente la restricción de **iconografía profesional sin emojis**: toda señalización de estado/alerta/acción debe usar librerías de iconos vectoriales (Lucide, Feather, Material Symbols outline o Font Awesome outline), nunca emojis, tanto en interfaz como en documentación y commits.
 * Se añadieron restricciones explícitas de disciplina de alcance (no adelantar autenticación real, integración PROCOMER, notificaciones reales, panel analítico avanzado ni IA generativa autónoma).
 * Se documentaron restricciones adicionales de reglas de negocio (RN-01 a RN-12) como límites no modificables sin aprobación, y el umbral de validación del documento (>=80/100, ninguna categoría <12/20).
+
+#### Iteración 5: Incorporación de Diseño Responsivo
+* Se agregó la restricción **RES-33 (Diseño responsivo obligatorio)**: la interfaz debe visualizarse y funcionar correctamente en computadora, tablet y celular, con puntos de quiebre de referencia en 767px y 1024px.
+* Se reforzaron en consecuencia los objetivos específicos, las reglas del agente (REGLA-16) y las buenas prácticas de desarrollo con una sección dedicada a diseño responsivo (mobile-first, layout flexible, tablas/listados adaptables y pruebas en los tres formatos).
 
 ### 6.4 Estado de Requerimientos (Coverage Tracker)
 * **Requerimientos Funcionales Totales:** 22 (RF-01 al RF-22)
