@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "dev": "nodemon server.js"
   },
   "repository": {
     "type": "git",
@@ -17,5 +19,11 @@
   "bugs": {
     "url": "https://github.com/eikabarc2008fwdcostarica-cpu/Laboratorio_3_ZoFrancaCR/issues"
   },
-  "homepage": "https://github.com/eikabarc2008fwdcostarica-cpu/Laboratorio_3_ZoFrancaCR#readme"
+  "homepage": "https://github.com/eikabarc2008fwdcostarica-cpu/Laboratorio_3_ZoFrancaCR#readme",
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  },
+  "dependencies": {
+    "express": "^5.2.1"
+  }
 }

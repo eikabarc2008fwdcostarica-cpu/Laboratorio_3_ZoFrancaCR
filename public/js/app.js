@@ -1,1 +1,1 @@
-// Punto de entrada general de la aplicación.
+// Punto de entrada reservado para futuras funcionalidades de negocio.
