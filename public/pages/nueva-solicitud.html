@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nueva Solicitud - ZoFranca CR</title>
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Hoja de Estilos Modular -->
+  <link rel="stylesheet" href="../styles/nueva-solicitud.css">
+  
+  <!-- Lógica JavaScript Modular -->
+  <script src="../js/nueva-solicitud.js" defer></script>
+</head>
+<body>
+
+  <div class="app-container">
+    
+    <!-- Encabezado de la Pantalla -->
+    <header>
+      <div class="brand-badge">
+        <!-- SVG Icono Edificio / Zona Franca -->
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5m0 0v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+        </svg>
+        <span>ZoFranca CR &bull; Plataforma de Gestión</span>
+      </div>
+      <h1>Nueva Solicitud de Instalación</h1>
+      <p class="subtitle">Complete los datos de la empresa para iniciar el trámite de ingreso al régimen de zona franca.</p>
+    </header>
+
+    <!-- Tarjeta Principal del Formulario -->
+    <main class="card">
+      
+      <!-- Banner de Estado (Feedback de Envío) -->
+      <div id="statusBanner" class="status-banner" role="alert" aria-live="polite">
+        <div id="statusIcon"></div>
+        <span id="statusMessage"></span>
+      </div>
+
+      <!-- Formulario de Solicitud -->
+      <form id="solicitudForm" novalidate>
+        
+        <div class="form-grid">
+          
+          <!-- 1. Nombre de la empresa -->
+          <div class="form-group">
+            <label for="nombreEmpresa">
+              Nombre de la Empresa <span class="required-star">*</span>
+            </label>
+            <input 
+              type="text" 
+              id="nombreEmpresa" 
+              name="nombreEmpresa" 
+              placeholder="Ej. TechCorp Costa Rica S.A." 
+              required
+            >
+            <span class="field-error" id="err-nombreEmpresa">El nombre de la empresa es obligatorio.</span>
+          </div>
+
+          <!-- 2. Sector -->
+          <div class="form-group">
+            <label for="sector">
+              Sector Industrial <span class="required-star">*</span>
+            </label>
+            <select id="sector" name="sector" required>
+              <option value="" disabled selected>Seleccione un sector...</option>
+              <option value="Tecnología y Servicios">Tecnología y Servicios</option>
+              <option value="Manufactura Avanzada">Manufactura Avanzada</option>
+              <option value="Ciencias de la Vida / Médica">Ciencias de la Vida / Médica</option>
+              <option value="Logística y Distribución">Logística y Distribución</option>
+              <option value="Agroindustria">Agroindustria</option>
+            </select>
+            <span class="field-error" id="err-sector">Debe seleccionar un sector industrial.</span>
+          </div>
+
+          <!-- 3. Correo -->
+          <div class="form-group">
+            <label for="correo">
+              Correo Electrónico <span class="required-star">*</span>
+            </label>
+            <input 
+              type="email" 
+              id="correo" 
+              name="correo" 
+              placeholder="contacto@empresa.com" 
+              required
+            >
+            <span class="field-error" id="err-correo">Ingrese un correo electrónico válido.</span>
+          </div>
+
+          <!-- 4. Teléfono -->
+          <div class="form-group">
+            <label for="telefono">
+              Teléfono de Contacto <span class="required-star">*</span>
+            </label>
+            <input 
+              type="tel" 
+              id="telefono" 
+              name="telefono" 
+              placeholder="+506 2200-0000" 
+              required
+            >
+            <span class="field-error" id="err-telefono">El teléfono de contacto es obligatorio.</span>
+          </div>
+
+          <!-- 5. Representante Legal -->
+          <div class="form-group">
+            <label for="representanteLegal">
+              Representante Legal <span class="required-star">*</span>
+            </label>
+            <input 
+              type="text" 
+              id="representanteLegal" 
+              name="representanteLegal" 
+              placeholder="Nombre y apellidos del apoderado" 
+              required
+            >
+            <span class="field-error" id="err-representanteLegal">El nombre del representante legal es obligatorio.</span>
+          </div>
+
+          <!-- 6. Inversión Proyectada -->
+          <div class="form-group">
+            <label for="inversionProyectada">
+              Inversión Proyectada (USD) <span class="required-star">*</span>
+            </label>
+            <input 
+              type="number" 
+              id="inversionProyectada" 
+              name="inversionProyectada" 
+              placeholder="Ej. 500000" 
+              min="1"
+              step="any"
+              required
+            >
+            <span class="field-error" id="err-inversionProyectada">Ingrese un monto de inversión válido mayor a 0.</span>
+          </div>
+
+          <!-- 7. Empleos Proyectados -->
+          <div class="form-group">
+            <label for="empleosProyectados">
+              Empleos Proyectados <span class="required-star">*</span>
+            </label>
+            <input 
+              type="number" 
+              id="empleosProyectados" 
+              name="empleosProyectados" 
+              placeholder="Ej. 25" 
+              min="1"
+              step="1"
+              required
+            >
+            <span class="field-error" id="err-empleosProyectados">Ingrese una cantidad de empleos válida (mínimo 1).</span>
+          </div>
+
+          <!-- Espaciador opcional para grid alineado -->
+          <div class="form-group"></div>
+
+          <!-- 8. Descripción -->
+          <div class="form-group full-width">
+            <label for="descripcion">
+              Descripción del Proyecto y Operaciones <span class="required-star">*</span>
+            </label>
+            <textarea 
+              id="descripcion" 
+              name="descripcion" 
+              placeholder="Describa brevemente las actividades principales, mercado meta y objetivos de la instalación..."
+              required
+            ></textarea>
+            <span class="field-error" id="err-descripcion">La descripción del proyecto es obligatoria.</span>
+          </div>
+
+        </div>
+
+        <!-- Documentos (Simulación Visual) -->
+        <div class="docs-section full-width">
+          <div class="docs-header">
+            <h3>Documentos Anexos (Simulación)</h3>
+            <p>Seleccione o arrastre archivos de respaldo (Plan de negocios, Estados financieros, etc.). No se almacenan binarios.</p>
+          </div>
+
+          <input type="file" id="documentosInput" multiple accept=".pdf,.doc,.docx,.xlsx,.png,.jpg" style="display: none;">
+
+          <div class="dropzone" id="dropzone" tabindex="0" role="button" aria-label="Seleccionar archivos anexos simulados">
+            <!-- SVG Upload Icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+            </svg>
+            <div class="dropzone-text">
+              Arrastre archivos aquí o haga <span>clic para examinar</span>
+            </div>
+          </div>
+
+          <!-- Lista de archivos simulados -->
+          <div class="file-list" id="fileList"></div>
+        </div>
+
+        <!-- Botón de Envío -->
+        <div class="form-actions">
+          <button type="submit" id="btnSubmit" class="btn-submit">
+            <!-- SVG Icono Enviar / Papel Avión -->
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            </svg>
+            <span>Enviar Solicitud</span>
+          </button>
+        </div>
+
+      </form>
+
+    </main>
+
+    <footer>
+      <p>&copy; 2026 ZoFranca CR &bull; Todos los derechos reservados. Sistema de Gestión Asíncrona.</p>
+    </footer>
+
+  </div>
+
+</body>
+</html>
