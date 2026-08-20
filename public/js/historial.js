@@ -1,0 +1,1 @@
+// Lógica futura del historial.
