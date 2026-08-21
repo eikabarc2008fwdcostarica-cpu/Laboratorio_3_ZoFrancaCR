@@ -3,20 +3,286 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cumplimiento | ZoFranca CR</title>
+  <title>Reporte Anual de Operaciones | Cumplimiento - ZoFranca CR</title>
+  
+  <!-- Estilos del Sistema -->
   <link rel="stylesheet" href="../styles/styles.css">
   <link rel="stylesheet" href="../styles/layout.css">
   <link rel="stylesheet" href="../styles/components.css">
+  <link rel="stylesheet" href="../styles/cumplimiento.css">
   <link rel="stylesheet" href="../styles/responsive.css">
 </head>
 <body data-page="cumplimiento">
   <main class="main-content">
-    <section class="page-heading"><div><h1>Cumplimiento</h1><p>Seguimiento de compromisos empresariales.</p></div></section>
-    <section class="card section-placeholder"><div class="card-header"><div><h2 class="card-title">Panel de cumplimiento</h2><p class="card-subtitle">Los indicadores se implementarán en una fase posterior.</p></div><span class="badge badge-info">Pendiente</span></div></section>
+    
+    <!-- Encabezado de la Pantalla -->
+    <section class="page-heading">
+      <div>
+        <h1>Reporte Anual de Operaciones</h1>
+        <p>Seguimiento de compromisos empresariales y evaluación de cumplimiento en el Régimen de Zona Franca.</p>
+      </div>
+    </section>
+
+    <div class="cumplimiento-layout">
+      
+      <!-- Selector de Empresa y periodo desde API -->
+      <section class="cumplimiento-header-card">
+        <div class="cumplimiento-header-title">
+          <h2>Panel de Evaluación de Cumplimiento</h2>
+          <p>Seleccione una empresa para consultar y actualizar sus indicadores de operaciones.</p>
+        </div>
+        <div class="empresa-select-group">
+          <label for="empresaSelector">Empresa instalada:</label>
+          <select id="empresaSelector" class="select">
+            <option value="" disabled selected>Cargando empresas...</option>
+          </select>
+        </div>
+      </section>
+
+      <!-- Banner de Retroalimentación y Estado de Envío -->
+      <div id="statusBanner" class="status-banner" role="alert" aria-live="polite">
+        <div id="statusIcon"></div>
+        <span id="statusMessage"></span>
+      </div>
+
+      <!-- Formulario Principal del Reporte Anual -->
+      <form id="reporteForm" novalidate>
+        
+        <div class="cumplimiento-content-grid">
+          
+          <!-- Columna Izquierda: Datos Cargados de la Empresa y Compromisos -->
+          <article class="card">
+            <div class="card-title-group">
+              <!-- SVG Icono Edificio / Registro -->
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5m0 0v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+              </svg>
+              <span>Datos del Registro y Compromisos</span>
+            </div>
+
+            <div class="fields-grid">
+              
+              <!-- 1. Empresa -->
+              <div class="form-group form-group-span-2">
+                <label for="empresa">Empresa <span class="required-star">*</span></label>
+                <input type="text" id="empresa" name="empresa" class="input" placeholder="Nombre de la empresa" required>
+                <span class="field-error">El nombre de la empresa es obligatorio.</span>
+              </div>
+
+              <!-- 2. Cédula Jurídica -->
+              <div class="form-group">
+                <label for="cedula">Cédula Jurídica <span class="required-star">*</span></label>
+                <input type="text" id="cedula" name="cedula" class="input" placeholder="Ej. 3-101-000000" required>
+                <span class="field-error">La cédula jurídica es obligatoria.</span>
+              </div>
+
+              <!-- 3. Periodo -->
+              <div class="form-group">
+                <label for="periodo">Periodo <span class="required-star">*</span></label>
+                <input type="text" id="periodo" name="periodo" class="input" placeholder="Ej. 2025 - 2026" required>
+                <span class="field-error">El periodo es obligatorio.</span>
+              </div>
+
+              <!-- 4. Clasificación -->
+              <div class="form-group">
+                <label for="clasificacion">Clasificación <span class="required-star">*</span></label>
+                <select id="clasificacion" name="clasificacion" class="select" required>
+                  <option value="" disabled selected>Seleccione...</option>
+                  <option value="Tecnología y Servicios">Tecnología y Servicios</option>
+                  <option value="Manufactura Avanzada">Manufactura Avanzada</option>
+                  <option value="Ciencias de la Vida / Médica">Ciencias de la Vida / Médica</option>
+                  <option value="Agroindustria y Logística">Agroindustria y Logística</option>
+                </select>
+                <span class="field-error">Seleccione una clasificación.</span>
+              </div>
+
+              <!-- 5. Categoría -->
+              <div class="form-group">
+                <label for="categoria">Categoría <span class="required-star">*</span></label>
+                <select id="categoria" name="categoria" class="select" required>
+                  <option value="" disabled selected>Seleccione...</option>
+                  <option value="Categoría a) Servicios de Exportación">Categoría a) Servicios de Exportación</option>
+                  <option value="Categoría b) Manufactura en Zona Franca">Categoría b) Manufactura en Zona Franca</option>
+                  <option value="Categoría c) Comercialización y Logística">Categoría c) Comercialización y Logística</option>
+                  <option value="Categoría d) Investigación y Desarrollo">Categoría d) Investigación y Desarrollo</option>
+                </select>
+                <span class="field-error">Seleccione una categoría.</span>
+              </div>
+
+              <!-- 6. Gama -->
+              <div class="form-group form-group-span-2">
+                <label for="gama">Gama <span class="required-star">*</span></label>
+                <select id="gama" name="gama" class="select" required>
+                  <option value="" disabled selected>Seleccione gama...</option>
+                  <option value="Gama Alta">Gama Alta</option>
+                  <option value="Gama Media">Gama Media</option>
+                  <option value="Gama Estándar">Gama Estándar</option>
+                </select>
+                <span class="field-error">Seleccione una gama.</span>
+              </div>
+
+              <!-- Separador / Sección de Datos Operativos -->
+              <div class="form-group form-group-span-2" style="margin-top: 0.5rem;">
+                <h3 style="font-size: 0.95rem; font-weight: 700; color: var(--color-text); margin-bottom: 0.25rem;">Compromisos y Cifras Ejecutadas</h3>
+                <p style="font-size: 0.8rem; color: var(--color-text-muted);">Valores base para el cálculo de cumplimiento anual.</p>
+              </div>
+
+              <!-- 7. Nivel de Empleo (Real) -->
+              <div class="form-group">
+                <label for="nivelEmpleo">Nivel de Empleo (Real) <span class="required-star">*</span></label>
+                <input type="number" id="nivelEmpleo" name="nivelEmpleo" class="input" min="0" placeholder="Ej. 45" required>
+                <span class="field-error">Ingrese un nivel de empleo válido.</span>
+              </div>
+
+              <!-- 8. Empleo Comprometido -->
+              <div class="form-group">
+                <label for="empleoComprometido">Empleo Comprometido <span class="required-star">*</span></label>
+                <input type="number" id="empleoComprometido" name="empleoComprometido" class="input" min="1" placeholder="Ej. 50" required>
+                <span class="field-error">Ingrese el empleo comprometido.</span>
+              </div>
+
+              <!-- 9. Inversión Ejecutada -->
+              <div class="form-group">
+                <label for="inversionEjecutada">Inversión Ejecutada (USD) <span class="required-star">*</span></label>
+                <input type="number" id="inversionEjecutada" name="inversionEjecutada" class="input" min="0" step="any" placeholder="Ej. 520000" required>
+                <span class="field-error">Ingrese la inversión ejecutada.</span>
+              </div>
+
+              <!-- 10. Inversión Comprometida -->
+              <div class="form-group">
+                <label for="inversionComprometida">Inversión Comprometida (USD) <span class="required-star">*</span></label>
+                <input type="number" id="inversionComprometida" name="inversionComprometida" class="input" min="1" step="any" placeholder="Ej. 500000" required>
+                <span class="field-error">Ingrese la inversión comprometida.</span>
+              </div>
+
+              <!-- 11. Exportaciones -->
+              <div class="form-group">
+                <label for="exportaciones">Exportaciones Reales (USD) <span class="required-star">*</span></label>
+                <input type="number" id="exportaciones" name="exportaciones" class="input" min="0" step="any" placeholder="Ej. 1200000" required>
+                <span class="field-error">Ingrese el monto de exportaciones.</span>
+              </div>
+
+              <!-- 12. Metas Correspondientes -->
+              <div class="form-group">
+                <label for="metasCorrespondientes">Meta Exportaciones (USD) <span class="required-star">*</span></label>
+                <input type="number" id="metasCorrespondientes" name="metasCorrespondientes" class="input" min="1" step="any" placeholder="Ej. 1000000" required>
+                <span class="field-error">Ingrese la meta de exportaciones.</span>
+              </div>
+
+            </div>
+
+            <!-- Acciones -->
+            <div class="cumplimiento-actions">
+              <button type="submit" id="btnSubmit" class="btn btn-primary btn-enviar-reporte">
+                <!-- SVG Icono Enviar -->
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" width="18" height="18">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
+                <span>Enviar Reporte</span>
+              </button>
+            </div>
+
+          </article>
+
+          <!-- Columna Derecha: Indicadores Calculados Dinámicamente & Barras de Progreso -->
+          <article class="card">
+            <div class="card-title-group">
+              <!-- SVG Icono Gráfico / Métricas -->
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+              </svg>
+              <span>Indicadores de Cumplimiento Calculados</span>
+            </div>
+
+            <div class="metrics-stack">
+              
+              <!-- 1. Porcentaje y Brecha de Empleo -->
+              <div class="metric-card">
+                <div class="metric-card-header">
+                  <div class="metric-card-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
+                    <span>Cumplimiento de Empleo</span>
+                  </div>
+                  <div class="metric-card-value" id="calcPorcentajeEmpleo">0%</div>
+                </div>
+
+                <div class="progress-bar-bg">
+                  <div id="barEmpleo" class="progress-bar-fill"></div>
+                </div>
+
+                <div class="metric-card-details">
+                  <span>Brecha de Empleo:</span>
+                  <span id="calcBrechaEmpleo" class="metric-subval">0 empleos</span>
+                </div>
+              </div>
+
+              <!-- 2. Porcentaje de Inversión y Superávit/Déficit -->
+              <div class="metric-card">
+                <div class="metric-card-header">
+                  <div class="metric-card-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                    <span>Cumplimiento de Inversión</span>
+                  </div>
+                  <div class="metric-card-value" id="calcPorcentajeInversion">0%</div>
+                </div>
+
+                <div class="progress-bar-bg">
+                  <div id="barInversion" class="progress-bar-fill"></div>
+                </div>
+
+                <div class="metric-card-details">
+                  <span>Superávit / Déficit Financiero:</span>
+                  <span id="calcSuperavitDeficit" class="metric-subval">$0</span>
+                </div>
+              </div>
+
+              <!-- 3. Porcentaje y Metas de Exportación -->
+              <div class="metric-card">
+                <div class="metric-card-header">
+                  <div class="metric-card-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 002 2h1.5a2.5 2.5 0 002.5-2.5V11a2 2 0 002-2v-.055M16 19h2a2 2 0 002-2v-2a2 2 0 00-2-2h-1m-1 4l-2 2m0 0l-2-2m2 2V12" /></svg>
+                    <span>Cumplimiento de Exportaciones</span>
+                  </div>
+                  <div class="metric-card-value" id="calcPorcentajeExportaciones">0%</div>
+                </div>
+
+                <div class="progress-bar-bg">
+                  <div id="barExportaciones" class="progress-bar-fill"></div>
+                </div>
+
+                <div class="metric-card-details">
+                  <span>Meta Correspondiente:</span>
+                  <span id="calcMetaExportaciones" class="metric-subval">$0</span>
+                </div>
+              </div>
+
+              <!-- Panel de Estado Global de Cumplimiento -->
+              <div class="estado-global-panel">
+                <div class="estado-global-header">
+                  <span class="estado-label">Estado Global Calculado</span>
+                  <div id="calcEstadoBadge" class="badge-estado-large badge-success">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+                    <span>Calculando...</span>
+                  </div>
+                </div>
+                <p id="calcEstadoDescripcion" class="estado-copy">Evaluando datos de la empresa...</p>
+              </div>
+
+            </div>
+          </article>
+
+        </div>
+
+      </form>
+
+    </div>
   </main>
+
   <script src="../js/theme.js"></script>
   <script src="../js/ui.js"></script>
   <script src="../js/mobile-preview.js"></script>
+  <script src="../js/api.js"></script>
+  <script src="../js/cumplimiento.js"></script>
   <script src="../js/app.js"></script>
 </body>
 </html>
