@@ -164,7 +164,7 @@
         <td data-label="Inversión actual/meta">${escapeHTML(investment)}</td>
         <td data-label="Exportaciones actual/meta">${escapeHTML(exports)}</td>
         <td data-label="Estado"><span class="badge ${getBadgeClass(row.status)}">${row.status}</span></td>
-        <td data-label="Acción"><a class="table-action" href="detalle.html?id=${encodeURIComponent(company.id || '')}">Ver detalle</a></td>
+        <td data-label="Acción"><a class="table-action" href="/pages/detalle.html?id=${encodeURIComponent(company.id || '')}">Ver detalle</a></td>
       </tr>`;
     }).join('');
 
