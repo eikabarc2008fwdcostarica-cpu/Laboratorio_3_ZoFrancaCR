@@ -308,12 +308,28 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'pages/index.html'));
 });
 
-app.get('/cumplimiento', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'pages/cumplimiento.html'));
-});
+const pageNames = [
+  'index',
+  'nueva-solicitud',
+  'detalle',
+  'decision',
+  'cumplimiento',
+  'alertas',
+  'historial'
+];
 
-app.get('/historial', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'pages/historial.html'));
+pageNames.forEach(pageName => {
+  const pageFile = path.join(__dirname, 'public', 'pages', `${pageName}.html`);
+
+  app.get(`/${pageName}.html`, (req, res) => {
+    res.sendFile(pageFile);
+  });
+
+  if (pageName !== 'index') {
+    app.get(`/${pageName}`, (req, res) => {
+      res.sendFile(pageFile);
+    });
+  }
 });
 
 const PORT = Number(process.env.ZOFRANCA_WEB_PORT) || 3001;

@@ -134,7 +134,7 @@
         <td data-label="Puntaje IA">${escapeHTML(score)}</td>
         <td data-label="Estado"><span class="badge ${getBadgeClass(request.estado)}">${escapeHTML(getStatusLabel(request.estado))}</span></td>
         <td data-label="Fecha">${escapeHTML(formatDate(request.fecha))}</td>
-        <td data-label="Acción"><a class="table-action" href="detalle.html?id=${encodeURIComponent(request.id)}">Ver detalle</a></td>
+        <td data-label="Acción"><a class="table-action" href="/pages/detalle.html?id=${encodeURIComponent(request.id)}">Ver detalle</a></td>
       </tr>`;
     }).join('');
 

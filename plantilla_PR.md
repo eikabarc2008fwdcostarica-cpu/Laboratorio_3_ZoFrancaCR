@@ -2,7 +2,7 @@
 
 ## ¿Qué hace este PR?
 
-Corrige la base técnica de ZoFranca CR, integra la API simulada con la interfaz compartida e implementa el Dashboard dinámico, el registro de decisiones humanas y el monitoreo de alertas y cumplimiento. También normaliza el formulario, la navegación, la iconografía, el diseño responsive y el flujo de colaboración del equipo.
+Corrige la base técnica de ZoFranca CR, integra la API simulada con la interfaz compartida e implementa el Dashboard dinámico, el registro de decisiones humanas, el monitoreo de alertas y una herramienta global de previsualización móvil. También normaliza el formulario, la navegación, la iconografía, el diseño responsive y el flujo de colaboración del equipo.
 
 ### Cambios incluidos
 
@@ -53,6 +53,17 @@ Corrige la base técnica de ZoFranca CR, integra la API simulada con la interfaz
 - El resumen se identifica expresamente como apoyo analítico y no como una decisión automática.
 - La pantalla de alertas incluye estados de carga, error, sin resultados y datos disponibles.
 - El monitoreo conserva compatibilidad con modo oscuro, responsive real y vista móvil.
+- Se implementó una herramienta global de previsualización móvil disponible desde el header.
+- La herramienta abre un modal u overlay con un viewport aproximado de `390 × 844 px`.
+- La previsualización reutiliza el mismo DOM de la página actual, sin duplicar HTML ni utilizar `iframe`.
+- Se conservan los datos cargados, filtros, formularios, tablas y estado visible de la página.
+- La vista permite desplazamiento vertical dentro del dispositivo simulado.
+- El modo claro u oscuro activo se mantiene dentro de la previsualización.
+- El modal se puede cerrar con el botón, la tecla `Escape` o un clic fuera del dispositivo.
+- Al cerrar, la aplicación restaura su posición original y el desplazamiento previo.
+- El botón de previsualización se oculta en dispositivos móviles reales de hasta `767px`.
+- El responsive real continúa funcionando independientemente fuera de la herramienta.
+- Al no utilizar `iframe`, se elimina el riesgo de recursión infinita.
 
 ## ¿Por qué?
 
@@ -91,6 +102,15 @@ La auditoría técnica detectó que faltaban `db.json` y `json-server`, que `nod
 29. Crear o simular una alerta activa de prioridad alta y verificar el aviso crítico.
 30. Generar el Resumen IA y confirmar que utiliza los datos locales y muestra la advertencia de apoyo analítico.
 31. Detener temporalmente la API y confirmar que se muestra un error amigable sin fallos no controlados.
+32. Abrir cualquiera de las siete páginas desde una pantalla de escritorio.
+33. Pulsar `Vista móvil` y verificar que aparece el overlay con un dispositivo de aproximadamente `390 × 844 px`.
+34. Confirmar que la página actual conserva sus datos, filtros y contenido visible dentro del dispositivo.
+35. Desplazarse verticalmente dentro de la previsualización.
+36. Cambiar el tema antes de abrir el modal y comprobar que se conserva dentro del dispositivo.
+37. Cerrar la herramienta mediante el botón, la tecla `Escape` y un clic fuera del dispositivo.
+38. Confirmar que la página vuelve a su posición y estado anteriores.
+39. Reducir la ventana a `767px` o menos y verificar que el botón `Vista móvil` se oculta.
+40. Comprobar que el responsive normal sigue funcionando sin activar la herramienta.
 
 ## Checklist
 
@@ -124,3 +144,12 @@ La auditoría técnica detectó que faltaban `db.json` y `json-server`, que `nod
 - [x] El resumen IA utiliza exclusivamente datos locales
 - [x] El resumen IA se identifica como apoyo y no como decisión automática
 - [x] La pantalla de alertas conserva responsive, tema oscuro y vista móvil
+- [x] La previsualización móvil está disponible en las siete páginas
+- [x] Se reutiliza el mismo DOM sin duplicar manualmente el HTML
+- [x] No se utiliza `iframe` ni existe riesgo de recursión
+- [x] Se conservan datos, filtros y formularios visibles
+- [x] El viewport simulado permite desplazamiento vertical
+- [x] La herramienta respeta modo claro y oscuro
+- [x] El modal se cierra mediante botón, `Escape` o clic exterior
+- [x] El botón se oculta en dispositivos móviles reales
+- [x] El responsive real permanece independiente
