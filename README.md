@@ -111,12 +111,12 @@ La primera versión implementa el flujo principal para **una** zona franca: conf
 ## Estructura del proyecto
 
 ```
-/services   -> solicitud-service.js, reporte-service.js, evaluador-ia.js
-/logic      -> clasificacion.js, cumplimiento.js, validaciones.js
-/ui         -> dashboard.js, detalle-solicitud.js, alertas.js
-/icons      -> wrappers o referencias a la librería de iconos elegida
-/assets     -> estilos, mockups exportados
-db.json     -> base de datos simulada para json-server
+public/pages/   -> páginas HTML
+public/js/      -> interfaz, servicios y lógica por dominio
+public/styles/  -> estilos globales, layout, componentes y responsive
+public/assets/  -> iconos e imágenes locales
+server.js      -> servidor del frontend en el puerto 3001
+db.json        -> base de datos simulada para json-server en el puerto 3005
 ```
 
 - **Capa de UI/DOM:** manipulación del DOM y eventos de usuario.
@@ -208,15 +208,18 @@ db.json     -> base de datos simulada para json-server
 ## Instalación y ejecución
 
 ```bash
-# 1. Instalar json-server (si no está instalado)
-npm install -g json-server
+# 1. Instalar las dependencias declaradas
+npm install
 
-# 2. Iniciar el backend simulado sobre db.json
-json-server --watch db.json --port 3000
+# 2. Iniciar la API simulada en una terminal
+npm run api
 
-# 3. Abrir el frontend (index.html) en el navegador
-#    La aplicación consume el backend mediante fetch en http://localhost:3000
+# 3. Iniciar el frontend en otra terminal
+npm start
 ```
+
+- Frontend: `http://localhost:3001`
+- API: `http://localhost:3005`
 
 > No se requiere ninguna instalación adicional para el usuario final: la aplicación corre directamente en cualquier navegador web moderno (RNF-04).
 

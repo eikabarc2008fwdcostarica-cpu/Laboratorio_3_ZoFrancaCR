@@ -1,4 +1,4 @@
-@media (max-width: 1050px) {
+@media (max-width: 1024px) {
   :root {
     --sidebar-width: 220px;
   }
@@ -13,7 +13,7 @@
   }
 }
 
-@media (max-width: 760px) {
+@media (max-width: 767px) {
   body:not(.mobile-preview-active) .app-shell {
     padding-bottom: 74px;
   }
@@ -89,6 +89,44 @@
   .table th,
   .table td {
     padding: 12px;
+  }
+
+  .table-responsive thead {
+    display: none;
+  }
+
+  .table-responsive,
+  .table-responsive tbody,
+  .table-responsive tr,
+  .table-responsive td {
+    display: block;
+    width: 100%;
+  }
+
+  .table-responsive tr {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .table-responsive td {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 7px 0;
+    border: 0;
+    white-space: normal;
+    text-align: right;
+  }
+
+  .table-responsive td::before {
+    color: var(--color-text-muted);
+    content: attr(data-label);
+    font-weight: 700;
+    text-align: left;
+  }
+
+  .form-actions .btn {
+    width: 100%;
   }
 }
 

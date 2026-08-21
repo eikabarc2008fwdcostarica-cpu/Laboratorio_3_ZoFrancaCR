@@ -1,18 +1,18 @@
 (function () {
   const navigation = [
-    { id: 'dashboard', label: 'Dashboard', icon: '▦', href: 'index.html' },
-    { id: 'solicitudes', label: 'Solicitudes', icon: '☷', href: 'nueva-solicitud.html' },
-    { id: 'empresas', label: 'Empresas', icon: '▣', href: 'detalle.html' },
-    { id: 'cumplimiento', label: 'Cumplimiento', icon: '✓', href: 'cumplimiento.html' },
-    { id: 'alertas', label: 'Alertas', icon: '!', href: 'alertas.html' },
-    { id: 'historial', label: 'Historial', icon: '◷', href: 'historial.html' },
-    { id: 'configuracion', label: 'Configuración', icon: '⚙', href: '#configuracion' }
+    { id: 'dashboard', label: 'Dashboard', icon: 'layout-dashboard', href: 'index.html' },
+    { id: 'solicitudes', label: 'Solicitudes', icon: 'clipboard-list', href: 'nueva-solicitud.html' },
+    { id: 'empresas', label: 'Empresas', icon: 'building-2', href: 'detalle.html' },
+    { id: 'cumplimiento', label: 'Cumplimiento', icon: 'badge-check', href: 'cumplimiento.html' },
+    { id: 'alertas', label: 'Alertas', icon: 'triangle-alert', href: 'alertas.html' },
+    { id: 'historial', label: 'Historial', icon: 'history', href: 'historial.html' },
+    { id: 'configuracion', label: 'Configuración', icon: 'settings', href: 'index.html#configuracion' }
   ];
 
   function buildSidebar(activePage) {
     const links = navigation.map(function (item) {
       const current = item.id === activePage ? ' aria-current="page"' : '';
-      return `<a class="nav-link" href="${item.href}"${current}><span class="nav-icon" aria-hidden="true">${item.icon}</span><span>${item.label}</span></a>`;
+      return `<a class="nav-link" href="${item.href}"${current}><i class="nav-icon" data-lucide="${item.icon}" aria-hidden="true"></i><span>${item.label}</span></a>`;
     }).join('');
 
     return `<aside class="sidebar" aria-label="Navegación principal">
@@ -28,21 +28,21 @@
   function buildHeader() {
     return `<header class="topbar">
       <div class="topbar-search">
-        <span class="search-icon" aria-hidden="true">⌕</span>
+        <i class="search-icon" data-lucide="search" aria-hidden="true"></i>
         <label class="visually-hidden" for="globalSearch">Buscar en ZoFranca CR</label>
         <input class="input" id="globalSearch" type="search" placeholder="Buscar..." autocomplete="off">
       </div>
       <div class="topbar-actions">
         <button class="btn btn-secondary" id="mobilePreviewButton" type="button" aria-pressed="false">
-          <span aria-hidden="true">▯</span><span class="action-label">Vista móvil</span>
+          <i data-lucide="smartphone" aria-hidden="true"></i><span class="action-label">Vista móvil</span>
         </button>
         <button class="btn btn-secondary" id="themeToggle" type="button" aria-pressed="false">
-          <span data-theme-icon aria-hidden="true">☾</span><span class="action-label" data-theme-label>Modo oscuro</span>
+          <i data-theme-icon data-lucide="moon" aria-hidden="true"></i><span class="action-label" data-theme-label>Modo oscuro</span>
         </button>
         <button class="icon-btn" type="button" aria-label="Notificaciones">
-          <span aria-hidden="true">♢</span><span class="notification-dot" aria-hidden="true"></span>
+          <i data-lucide="bell" aria-hidden="true"></i><span class="notification-dot" aria-hidden="true"></span>
         </button>
-        <a class="icon-btn" href="#configuracion" aria-label="Configuración"><span aria-hidden="true">⚙</span></a>
+        <a class="icon-btn" href="index.html#configuracion" aria-label="Configuración"><i data-lucide="settings" aria-hidden="true"></i></a>
         <div class="analyst-profile" aria-label="Usuario actual: Analista">
           <span class="avatar" aria-hidden="true">AN</span>
           <span class="profile-copy"><strong>Analista</strong><small>Administrador</small></span>
@@ -70,6 +70,7 @@
     exitBar.innerHTML = '<button class="btn btn-primary" id="exitMobilePreview" type="button">Salir de vista móvil</button>';
     document.body.append(exitBar);
 
+    window.lucide?.createIcons();
     document.dispatchEvent(new CustomEvent('zofranca:ui-ready'));
   });
 })();
