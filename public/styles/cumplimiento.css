@@ -1,0 +1,364 @@
+/* ==========================================================================
+   Estilos de Cumplimiento - Reporte Anual de Operaciones (ZoFranca CR)
+   ========================================================================== */
+
+.cumplimiento-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
+}
+
+/* Encabezado y Selector de Empresa */
+.cumplimiento-header-card {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.25rem 1.5rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+.cumplimiento-header-title {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.cumplimiento-header-title h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0;
+  color: var(--color-text);
+}
+
+.cumplimiento-header-title p {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+.empresa-select-group {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.empresa-select-group label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+
+.empresa-select-group select {
+  min-width: 240px;
+}
+
+/* Banner de Estado (Feedback de Envío y Carga) */
+.status-banner {
+  display: none;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.9rem 1.25rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  font-weight: 600;
+  animation: fadeIn 0.25s ease-in-out;
+}
+
+.status-banner.loading {
+  display: flex;
+  background: color-mix(in srgb, var(--color-info) 14%, transparent);
+  border: 1px solid var(--color-info);
+  color: var(--color-info);
+}
+
+.status-banner.success {
+  display: flex;
+  background: color-mix(in srgb, var(--color-success) 14%, transparent);
+  border: 1px solid var(--color-success);
+  color: var(--color-success);
+}
+
+.status-banner.error {
+  display: flex;
+  background: color-mix(in srgb, var(--color-danger) 14%, transparent);
+  border: 1px solid var(--color-danger);
+  color: var(--color-danger);
+}
+
+.spinner {
+  width: 18px;
+  height: 18px;
+  border: 2.5px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.75s linear infinite;
+  flex-shrink: 0;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Grid Principal: Formulario + Tarjetas de Cálculo */
+.cumplimiento-content-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 1024px) {
+  .cumplimiento-content-grid {
+    grid-template-columns: 1.15fr 1fr;
+  }
+}
+
+/* Secciones de Tarjeta */
+.card-title-group {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--color-border);
+  color: var(--color-text);
+}
+
+.card-title-group svg {
+  width: 20px;
+  height: 20px;
+  stroke: var(--color-primary);
+}
+
+/* Formulario Grid Interno */
+.fields-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.form-group-span-2 {
+  grid-column: span 2;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.form-group label {
+  font-size: 0.85rem;
+  font-weight: 650;
+  color: var(--color-text);
+}
+
+.required-star {
+  color: var(--color-danger);
+  margin-left: 0.2rem;
+}
+
+.field-error {
+  display: none;
+  font-size: 0.78rem;
+  color: var(--color-danger);
+  margin-top: 0.2rem;
+}
+
+.form-group.has-error .input,
+.form-group.has-error .select {
+  border-color: var(--color-danger);
+  background-color: color-mix(in srgb, var(--color-danger) 8%, transparent);
+}
+
+.form-group.has-error .field-error {
+  display: block;
+}
+
+/* Bloque de Indicadores Calculados */
+.metrics-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.metric-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  padding: 1.25rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.metric-card:hover {
+  border-color: color-mix(in srgb, var(--color-primary) 50%, var(--color-border));
+}
+
+.metric-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.metric-card-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+  font-weight: 680;
+  color: var(--color-text);
+}
+
+.metric-card-title svg {
+  width: 18px;
+  height: 18px;
+  stroke: var(--color-primary);
+}
+
+.metric-card-value {
+  font-size: 1.25rem;
+  font-weight: 780;
+  letter-spacing: -0.02em;
+}
+
+.metric-card-details {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.84rem;
+  color: var(--color-text-muted);
+}
+
+.metric-subval {
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+/* Barra de Progreso */
+.progress-bar-bg {
+  width: 100%;
+  height: 10px;
+  background: var(--color-border);
+  border-radius: 999px;
+  overflow: hidden;
+  position: relative;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  width: 0%;
+  border-radius: 999px;
+  transition: width 0.5s ease-out, background-color 0.3s ease;
+  background: var(--color-primary);
+}
+
+.progress-bar-fill.bar-success {
+  background: var(--color-success);
+}
+
+.progress-bar-fill.bar-warning {
+  background: var(--color-warning);
+}
+
+.progress-bar-fill.bar-danger {
+  background: var(--color-danger);
+}
+
+/* Panel del Estado de Cumplimiento Global */
+.estado-global-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1.25rem;
+  background: var(--color-surface-muted);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.estado-global-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.estado-label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-text-muted);
+}
+
+.badge-estado-large {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  font-weight: 750;
+}
+
+.badge-estado-large svg {
+  width: 16px;
+  height: 16px;
+  stroke: currentColor;
+}
+
+.estado-copy {
+  font-size: 0.86rem;
+  line-height: 1.45;
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+/* Acciones */
+.cumplimiento-actions {
+  margin-top: 1rem;
+}
+
+.btn-enviar-reporte {
+  width: 100%;
+  min-height: 46px;
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+/* Puntos de quiebre responsivos - RES-33 */
+@media (max-width: 767px) {
+  .fields-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .form-group-span-2 {
+    grid-column: span 1;
+  }
+
+  .empresa-select-group {
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .empresa-select-group select {
+    width: 100%;
+  }
+}

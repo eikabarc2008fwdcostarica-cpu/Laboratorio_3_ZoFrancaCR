@@ -1,0 +1,412 @@
+/* ==========================================================================
+   Estilos de Historial - Trazabilidad de Expediente (ZoFranca CR)
+   ========================================================================== */
+
+.historial-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
+}
+
+/* Header & Filtros Card */
+.historial-header-card {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.25rem 1.5rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+.historial-header-title h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0 0 0.25rem 0;
+  color: var(--color-text);
+}
+
+.historial-header-title p {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+.historial-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.historial-controls select {
+  min-width: 240px;
+}
+
+/* Banner de API No Disponible / Estado */
+.status-banner {
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.9rem 1.25rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.88rem;
+  font-weight: 600;
+  animation: fadeIn 0.25s ease-in-out;
+}
+
+.status-banner-content {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.status-banner.warning {
+  display: flex;
+  background: color-mix(in srgb, var(--color-warning) 14%, transparent);
+  border: 1px solid var(--color-warning);
+  color: var(--color-warning);
+}
+
+.status-banner.error {
+  display: flex;
+  background: color-mix(in srgb, var(--color-danger) 14%, transparent);
+  border: 1px solid var(--color-danger);
+  color: var(--color-danger);
+}
+
+.status-banner.info {
+  display: flex;
+  background: color-mix(in srgb, var(--color-info) 14%, transparent);
+  border: 1px solid var(--color-info);
+  color: var(--color-info);
+}
+
+.btn-retry-api {
+  padding: 4px 10px;
+  font-size: 0.78rem;
+  border-radius: 6px;
+  background: var(--color-surface);
+  border: 1px solid currentColor;
+  color: inherit;
+  cursor: pointer;
+  font-weight: 700;
+  transition: opacity var(--transition);
+}
+
+.btn-retry-api:hover {
+  opacity: 0.85;
+}
+
+/* Grid Principal: Línea de Tiempo + Tarjeta Lateral */
+.trazabilidad-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 1024px) {
+  .trazabilidad-grid {
+    grid-template-columns: 1fr 340px;
+  }
+}
+
+/* Tarjeta Lateral de Información del Expediente */
+.expediente-lateral-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  height: fit-content;
+}
+
+.lateral-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding-bottom: 0.85rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.lateral-title {
+  font-size: 1.1rem;
+  font-weight: 780;
+  color: var(--color-text);
+  margin: 0;
+}
+
+.lateral-subtitle {
+  font-size: 0.84rem;
+  color: var(--color-text-muted);
+}
+
+.lateral-data-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.lateral-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.lateral-item-label {
+  font-size: 0.76rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-text-muted);
+}
+
+.lateral-item-val {
+  font-size: 0.9rem;
+  font-weight: 650;
+  color: var(--color-text);
+}
+
+.lateral-badge-item {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+/* Filtros de Eventos */
+.timeline-filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.85rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.filter-chips-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.filter-chip {
+  padding: 5px 11px;
+  border-radius: 999px;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface-muted);
+  color: var(--color-text-muted);
+  font-size: 0.78rem;
+  font-weight: 650;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.filter-chip:hover,
+.filter-chip.active {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #ffffff;
+}
+
+/* Contenedor de la Línea de Tiempo (Timeline) */
+.timeline-section {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.timeline-list {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding-left: 2rem;
+}
+
+.timeline-list::before {
+  content: '';
+  position: absolute;
+  top: 10px;
+  bottom: 10px;
+  left: 17px;
+  width: 2px;
+  background: var(--color-border);
+}
+
+/* Evento de la Línea de Tiempo */
+.timeline-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 1.15rem 1.25rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition), border-color var(--transition);
+}
+
+.timeline-item:hover {
+  border-color: color-mix(in srgb, var(--color-primary) 50%, var(--color-border));
+}
+
+.timeline-marker {
+  position: absolute;
+  left: -2.35rem;
+  top: 1.15rem;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--color-surface);
+  border: 2px solid var(--color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-primary);
+  box-shadow: 0 0 0 4px var(--color-surface);
+  z-index: 2;
+}
+
+.timeline-marker.type-ia {
+  border-color: #6366f1;
+  color: #6366f1;
+}
+
+.timeline-marker.type-alerta {
+  border-color: var(--color-warning);
+  color: var(--color-warning);
+}
+
+.timeline-marker.type-decision {
+  border-color: var(--color-success);
+  color: var(--color-success);
+}
+
+.timeline-marker svg {
+  width: 14px;
+  height: 14px;
+  stroke: currentColor;
+}
+
+.timeline-item-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.timeline-type-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+  font-weight: 750;
+  color: var(--color-text);
+  text-transform: capitalize;
+}
+
+.timeline-date {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  font-weight: 500;
+}
+
+.timeline-description {
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: var(--color-text);
+  margin: 0;
+}
+
+.timeline-meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding-top: 0.6rem;
+  margin-top: 0.2rem;
+  border-top: 1px dashed var(--color-border);
+  font-size: 0.8rem;
+}
+
+.timeline-meta-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--color-text-muted);
+}
+
+.timeline-meta-item svg {
+  width: 14px;
+  height: 14px;
+  stroke: currentColor;
+}
+
+.timeline-meta-item strong {
+  color: var(--color-text);
+  font-weight: 650;
+}
+
+/* Evento IA Destacado */
+.timeline-item.is-ia-event {
+  border-left: 4px solid #6366f1;
+  background: color-mix(in srgb, #6366f1 4%, var(--color-surface));
+}
+
+/* Animación */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsivo - RES-33 */
+@media (max-width: 767px) {
+  .historial-header-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .historial-controls {
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .historial-controls select {
+    width: 100%;
+  }
+
+  .timeline-list {
+    padding-left: 1.5rem;
+  }
+
+  .timeline-list::before {
+    left: 10px;
+  }
+
+  .timeline-marker {
+    left: -1.75rem;
+    width: 22px;
+    height: 22px;
+  }
+
+  .timeline-marker svg {
+    width: 11px;
+    height: 11px;
+  }
+}
