@@ -30,6 +30,10 @@
 }
 
 @media (max-width: 767px) {
+  #mobilePreviewButton {
+    display: none;
+  }
+
   body:not(.mobile-preview-active) .app-shell {
     padding-bottom: 74px;
   }
@@ -161,15 +165,65 @@
 }
 
 body.mobile-preview-active {
-  padding: 34px 16px 96px;
-  background: #cbd3d0;
+  overflow: hidden;
+}
+
+.mobile-preview-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  padding: 18px;
+  background: rgb(5 12 10 / 88%);
+  backdrop-filter: blur(12px);
+}
+
+.mobile-preview-overlay[hidden] {
+  display: none;
+}
+
+.mobile-preview-toolbar {
+  display: flex;
+  width: min(100%, 760px);
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin: 0 auto 14px;
+  color: #fff;
+}
+
+.mobile-preview-toolbar > div:first-child {
+  display: grid;
+  gap: 3px;
+}
+
+.mobile-preview-toolbar span {
+  color: rgb(255 255 255 / 68%);
+  font-size: 0.78rem;
+}
+
+.mobile-preview-stage {
+  display: flex;
+  min-height: 0;
+  align-items: flex-start;
+  justify-content: center;
+  overflow: auto;
+  overscroll-behavior: contain;
+}
+
+.mobile-device-frame {
+  width: min(390px, calc(100vw - 36px));
+  height: min(844px, calc(100vh - 92px));
+  min-height: 520px;
+  flex: 0 0 auto;
 }
 
 body.mobile-preview-active .app-shell {
   position: relative;
-  width: min(390px, calc(100vw - 32px));
-  min-height: 780px;
-  margin: 0 auto;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
   overflow: hidden;
   border: 10px solid #1b2421;
   border-radius: 42px;
@@ -221,10 +275,11 @@ body.mobile-preview-active .nav-link {
 }
 
 body.mobile-preview-active .app-area {
-  height: 760px;
+  height: 100%;
   margin-left: 0;
   padding-bottom: 70px;
   overflow-y: auto;
+  overscroll-behavior: contain;
 }
 
 body.mobile-preview-active .topbar {
@@ -330,22 +385,17 @@ body.mobile-preview-active .pagination {
 }
 
 body.mobile-preview-active .mobile-exit-bar {
-  position: fixed;
-  right: 0;
-  bottom: 22px;
-  left: 0;
-  z-index: 80;
-  display: flex;
-  justify-content: center;
+  display: block;
 }
 
-@media (max-width: 430px) {
-  body.mobile-preview-active {
-    padding-right: 0;
-    padding-left: 0;
+@media (max-height: 650px) {
+  .mobile-preview-overlay {
+    padding-top: 10px;
+    padding-bottom: 10px;
   }
 
-  body.mobile-preview-active .app-shell {
-    width: calc(100vw - 16px);
+  .mobile-device-frame {
+    height: calc(100vh - 76px);
+    min-height: 440px;
   }
 }

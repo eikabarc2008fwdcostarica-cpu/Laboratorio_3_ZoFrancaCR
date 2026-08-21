@@ -2,7 +2,7 @@
 
 ## ¿Qué hace este PR?
 
-Corrige la base técnica de ZoFranca CR, integra la API simulada con la interfaz compartida e implementa el Dashboard dinámico y el registro de decisiones humanas sobre solicitudes. También normaliza el formulario, la navegación, la iconografía, el diseño responsive y el flujo de colaboración del equipo.
+Corrige la base técnica de ZoFranca CR, integra la API simulada con la interfaz compartida e implementa el Dashboard dinámico, el registro de decisiones humanas y el monitoreo de alertas y cumplimiento. También normaliza el formulario, la navegación, la iconografía, el diseño responsive y el flujo de colaboración del equipo.
 
 ### Cambios incluidos
 
@@ -40,10 +40,23 @@ Corrige la base técnica de ZoFranca CR, integra la API simulada con la interfaz
 - Cada resolución crea un evento de trazabilidad en `/historial`.
 - Si falla el registro del historial, el sistema intenta revertir la actualización para evitar datos inconsistentes.
 - Se agregaron estados visuales de carga, error, expediente disponible y decisión registrada.
+- Se conectó `alertas.html` con los endpoints `/empresas`, `/reportes` y `/alertas`.
+- Los tres recursos de monitoreo se cargan en paralelo mediante `Promise.all`.
+- Se agregaron métricas dinámicas de empresas monitoreadas, empresas en regla, empresas con alertas y reportes pendientes.
+- Los estados En regla, Alerta y Pendiente se calculan a partir de reportes y alertas activas.
+- Las empresas sin reportes se identifican automáticamente como pendientes.
+- Se muestra una alerta crítica cuando existen alertas activas de prioridad alta.
+- Se implementó una tabla con empresa, periodo, empleos actuales/meta, inversión, exportaciones, estado y acción.
+- Se agregaron búsqueda por empresa, filtro por estado y paginación de cinco registros.
+- Cada registro permite navegar a `detalle.html?id=ID_EMPRESA`.
+- Se agregó un resumen IA simulado basado exclusivamente en datos locales.
+- El resumen se identifica expresamente como apoyo analítico y no como una decisión automática.
+- La pantalla de alertas incluye estados de carga, error, sin resultados y datos disponibles.
+- El monitoreo conserva compatibilidad con modo oscuro, responsive real y vista móvil.
 
 ## ¿Por qué?
 
-La auditoría técnica detectó que faltaban `db.json` y `json-server`, que `node_modules` estaba versionado y que existían diferencias entre los puertos documentados. También encontró una implementación aislada de la página de solicitudes, un Dashboard con valores de ejemplo y una pantalla de decisión sin conexión a la API ni trazabilidad de la resolución humana.
+La auditoría técnica detectó que faltaban `db.json` y `json-server`, que `node_modules` estaba versionado y que existían diferencias entre los puertos documentados. También encontró una implementación aislada de la página de solicitudes, un Dashboard con valores de ejemplo, una pantalla de decisión sin trazabilidad y un panel de alertas que todavía no consumía empresas ni reportes reales.
 
 ## ¿Cómo se probó?
 
@@ -69,6 +82,15 @@ La auditoría técnica detectó que faltaban `db.json` y `json-server`, que `nod
 20. Confirmar que se crea el evento correspondiente en `/historial`.
 21. Verificar que `puntajeIA`, `clasificacionIA` y `justificacionIA` conservan sus valores originales.
 22. Comprobar que el botón permanece deshabilitado durante el registro y que se muestra la confirmación visual.
+23. Abrir `http://localhost:3001/pages/alertas.html` y confirmar la carga del monitoreo.
+24. Verificar que empresas, reportes y alertas se consultan correctamente desde la API.
+25. Confirmar con los datos iniciales las métricas: 2 empresas monitoreadas, 1 en regla, 1 con alerta y 0 reportes pendientes.
+26. Buscar una empresa y probar los filtros En regla, Alerta y Pendiente.
+27. Probar los controles de paginación cuando existan más de cinco registros.
+28. Abrir `Ver detalle` y comprobar que la URL contiene el ID de la empresa.
+29. Crear o simular una alerta activa de prioridad alta y verificar el aviso crítico.
+30. Generar el Resumen IA y confirmar que utiliza los datos locales y muestra la advertencia de apoyo analítico.
+31. Detener temporalmente la API y confirmar que se muestra un error amigable sin fallos no controlados.
 
 ## Checklist
 
@@ -93,3 +115,12 @@ La auditoría técnica detectó que faltaban `db.json` y `json-server`, que `nod
 - [x] Cada decisión genera un evento de historial
 - [x] Se evita el doble envío de decisiones
 - [x] La pantalla de decisión conserva responsive, tema oscuro y vista móvil
+- [x] Empresas, reportes y alertas se cargan mediante `Promise.all`
+- [x] Las métricas de monitoreo se calculan desde la API
+- [x] Los estados En regla, Alerta y Pendiente se derivan de los datos
+- [x] Las alertas de prioridad alta generan un aviso crítico
+- [x] La tabla permite buscar, filtrar y paginar registros
+- [x] Los registros enlazan al detalle de la empresa
+- [x] El resumen IA utiliza exclusivamente datos locales
+- [x] El resumen IA se identifica como apoyo y no como decisión automática
+- [x] La pantalla de alertas conserva responsive, tema oscuro y vista móvil
