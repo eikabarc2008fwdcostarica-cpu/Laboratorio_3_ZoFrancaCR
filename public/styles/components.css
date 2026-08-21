@@ -225,6 +225,40 @@
   margin: 7px 0 15px;
 }
 
+.critical-alert,
+.ai-summary {
+  margin-top: 18px;
+}
+
+.critical-alert[hidden],
+.ai-summary[hidden] {
+  display: none;
+}
+
+.critical-alert p,
+.ai-summary > p {
+  margin-bottom: 0;
+}
+
+.monitoring-filters {
+  display: grid;
+  grid-template-columns: minmax(240px, 2fr) minmax(180px, 1fr);
+  gap: 14px;
+  margin-bottom: 18px;
+  padding: 16px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-muted);
+}
+
+.monitoring-state {
+  margin-bottom: 16px;
+}
+
+.monitoring-state p {
+  margin: 3px 0 0;
+}
+
 .btn {
   display: inline-flex;
   min-height: 42px;

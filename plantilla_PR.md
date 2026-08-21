@@ -2,7 +2,7 @@
 
 ## ¿Qué hace este PR?
 
-Corrige la base técnica de ZoFranca CR, integra la API simulada con la interfaz compartida e implementa el Dashboard dinámico de solicitudes. También normaliza el formulario, la navegación, la iconografía, el diseño responsive y el flujo de colaboración del equipo.
+Corrige la base técnica de ZoFranca CR, integra la API simulada con la interfaz compartida e implementa el Dashboard dinámico y el registro de decisiones humanas sobre solicitudes. También normaliza el formulario, la navegación, la iconografía, el diseño responsive y el flujo de colaboración del equipo.
 
 ### Cambios incluidos
 
@@ -29,10 +29,21 @@ Corrige la base técnica de ZoFranca CR, integra la API simulada con la interfaz
 - Cada solicitud permite navegar a `detalle.html?id=ID`.
 - Se implementaron los estados visuales Cargando, Error, Sin resultados y Datos disponibles.
 - El Dashboard mantiene compatibilidad con modo oscuro, responsive real y vista móvil.
+- Se implementó `decision.html?id=ID` para consultar una solicitud específica desde la API.
+- La pantalla de decisión muestra expediente, empresa, puntaje, recomendación y justificación IA.
+- Se agregaron las resoluciones Confirmar recomendación, Cambiar a Revisar y Rechazar solicitud.
+- Las observaciones del analista son obligatorias cuando la resolución es Revisar o Rechazada.
+- Se evita el doble envío mientras la decisión está siendo registrada.
+- La decisión humana actualiza el estado de la solicitud mediante `PATCH`.
+- Se guardan decisión humana, observaciones y fecha de decisión.
+- Se preservan sin modificaciones `puntajeIA`, `clasificacionIA` y `justificacionIA`.
+- Cada resolución crea un evento de trazabilidad en `/historial`.
+- Si falla el registro del historial, el sistema intenta revertir la actualización para evitar datos inconsistentes.
+- Se agregaron estados visuales de carga, error, expediente disponible y decisión registrada.
 
 ## ¿Por qué?
 
-La auditoría técnica detectó que faltaban `db.json` y `json-server`, que `node_modules` estaba versionado y que existían diferencias entre los puertos documentados. También encontró una implementación aislada de la página de solicitudes y un Dashboard con valores de ejemplo que no consumía los datos reales de la API.
+La auditoría técnica detectó que faltaban `db.json` y `json-server`, que `node_modules` estaba versionado y que existían diferencias entre los puertos documentados. También encontró una implementación aislada de la página de solicitudes, un Dashboard con valores de ejemplo y una pantalla de decisión sin conexión a la API ni trazabilidad de la resolución humana.
 
 ## ¿Cómo se probó?
 
@@ -51,6 +62,13 @@ La auditoría técnica detectó que faltaban `db.json` y `json-server`, que `nod
 13. Avanzar y retroceder entre las dos páginas de resultados.
 14. Abrir `Ver detalle` y confirmar que la URL contiene `detalle.html?id=ID`.
 15. Detener temporalmente la API y verificar que el Dashboard muestra un error amigable sin fallos no controlados.
+16. Abrir `http://localhost:3001/pages/decision.html?id=sol-004` y comprobar los datos del expediente.
+17. Intentar registrar una decisión sin seleccionar una resolución y verificar la validación.
+18. Seleccionar Revisar o Rechazar sin observaciones y confirmar que el formulario bloquea el envío.
+19. Registrar una decisión válida y verificar los cambios en `/solicitudes/ID`.
+20. Confirmar que se crea el evento correspondiente en `/historial`.
+21. Verificar que `puntajeIA`, `clasificacionIA` y `justificacionIA` conservan sus valores originales.
+22. Comprobar que el botón permanece deshabilitado durante el registro y que se muestra la confirmación visual.
 
 ## Checklist
 
@@ -68,3 +86,10 @@ La auditoría técnica detectó que faltaban `db.json` y `json-server`, que `nod
 - [x] Los estados de carga, error, vacío y datos disponibles están implementados
 - [x] Las solicitudes enlazan al detalle utilizando su ID
 - [x] No se modificaron las páginas asignadas al otro desarrollador
+- [x] La página de decisión consulta solicitudes mediante su ID
+- [x] Las observaciones se validan según la resolución seleccionada
+- [x] La decisión humana actualiza el estado de la solicitud
+- [x] Los campos de IA permanecen intactos
+- [x] Cada decisión genera un evento de historial
+- [x] Se evita el doble envío de decisiones
+- [x] La pantalla de decisión conserva responsive, tema oscuro y vista móvil

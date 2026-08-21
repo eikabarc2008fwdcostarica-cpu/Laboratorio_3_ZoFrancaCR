@@ -16,6 +16,10 @@
     grid-template-columns: 1fr 1fr;
   }
 
+  .monitoring-filters {
+    grid-template-columns: 1fr 1fr;
+  }
+
   .decision-layout {
     grid-template-columns: 1fr;
   }
@@ -97,6 +101,10 @@
   .form-grid,
   .request-summary,
   .dashboard-filters {
+    grid-template-columns: 1fr;
+  }
+
+  .monitoring-filters {
     grid-template-columns: 1fr;
   }
 
@@ -267,6 +275,10 @@ body.mobile-preview-active .table-container {
 }
 
 body.mobile-preview-active .dashboard-filters {
+  grid-template-columns: 1fr;
+}
+
+body.mobile-preview-active .monitoring-filters {
   grid-template-columns: 1fr;
 }
 
