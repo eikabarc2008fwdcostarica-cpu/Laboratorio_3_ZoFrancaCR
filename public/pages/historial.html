@@ -3,21 +3,136 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Historial | ZoFranca CR</title>
+  <title>Trazabilidad de Expediente | Historial - ZoFranca CR</title>
+
+  <!-- Estilos del Sistema -->
   <link rel="stylesheet" href="../styles/styles.css">
   <link rel="stylesheet" href="../styles/layout.css">
   <link rel="stylesheet" href="../styles/components.css">
+  <link rel="stylesheet" href="../styles/historial.css">
   <link rel="stylesheet" href="../styles/responsive.css">
 </head>
 <body data-page="historial">
-  <main class="main-content">
-    <section class="page-heading"><div><h1>Historial</h1><p>Registro cronológico de actividad.</p></div></section>
-    <section class="card section-placeholder"><div class="card-header"><div><h2 class="card-title">Actividad del sistema</h2><p class="card-subtitle">El historial se implementará en una fase posterior.</p></div><span class="badge badge-info">Pendiente</span></div></section>
+  <main class="main-content" id="historialSection">
+
+    <!-- Encabezado de la Pantalla -->
+    <section class="page-heading">
+      <div>
+        <h1>Trazabilidad de Expediente</h1>
+        <p>Registro histórico y cronológico de actividad, evaluaciones, decisiones y cumplimiento por empresa.</p>
+      </div>
+    </section>
+
+    <div class="historial-layout">
+
+      <!-- Header Card: Selector de Expediente y Buscador -->
+      <section class="historial-header-card">
+        <div class="historial-header-title">
+          <h2>Expediente Electrónico</h2>
+          <p>Seleccione una empresa para revisar el historial completo de eventos y dictámenes.</p>
+        </div>
+        <div class="historial-controls">
+          <select id="expedienteSelector" class="select" aria-label="Seleccionar expediente de empresa">
+            <option value="" disabled selected>Cargando expedientes...</option>
+          </select>
+          <input type="search" id="eventSearchInput" class="input" placeholder="Buscar en historial..." autocomplete="off" style="max-width: 220px;">
+        </div>
+      </section>
+
+      <!-- Banner de Estado / API No Disponible -->
+      <div id="statusBanner" class="status-banner" role="alert" aria-live="polite">
+        <div class="status-banner-content">
+          <!-- SVG Icono Info / Alerta -->
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <span id="statusMessage">Cargando datos de trazabilidad...</span>
+        </div>
+        <button type="button" id="btnRetryApi" class="btn-retry-api">Reintentar API</button>
+      </div>
+
+      <!-- Grid Principal: Línea de Tiempo + Tarjeta Lateral -->
+      <div class="trazabilidad-grid">
+
+        <!-- Columna Izquierda: Línea de Tiempo (Events Timeline) -->
+        <section class="timeline-section">
+
+          <!-- Barra de Filtros de Eventos -->
+          <div class="timeline-filter-bar">
+            <div class="filter-chips-group" id="filterChipsGroup">
+              <button type="button" class="filter-chip active" data-filter="todos">Todos</button>
+              <button type="button" class="filter-chip" data-filter="solicitud">Solicitud</button>
+              <button type="button" class="filter-chip" data-filter="ia">Evaluación IA</button>
+              <button type="button" class="filter-chip" data-filter="decision">Decisión Analista</button>
+              <button type="button" class="filter-chip" data-filter="reporte">Reportes</button>
+              <button type="button" class="filter-chip" data-filter="alerta">Alertas</button>
+            </div>
+            <span id="totalEventsCounter" class="muted" style="font-size: 0.82rem; font-weight: 600;">0 eventos</span>
+          </div>
+
+          <!-- Contenedor Cronológico de Eventos -->
+          <div id="timelineList" class="timeline-list">
+            <!-- Eventos inyectados dinámicamente mediante historial.js -->
+          </div>
+
+        </section>
+
+        <!-- Columna Derecha: Tarjeta Lateral de Información del Expediente -->
+        <aside class="expediente-lateral-card">
+          <div class="lateral-header">
+            <h3 class="lateral-title" id="latEmpresa">Cargando...</h3>
+            <span class="lateral-subtitle" id="latCedula">Cédula: —</span>
+          </div>
+
+          <div class="lateral-data-list">
+            <!-- 1. Régimen -->
+            <div class="lateral-item">
+              <span class="lateral-item-label">Régimen Aplicable</span>
+              <span class="lateral-item-val" id="latRegimen">—</span>
+            </div>
+
+            <!-- 2. Parque Industrial -->
+            <div class="lateral-item">
+              <span class="lateral-item-label">Parque Industrial</span>
+              <span class="lateral-item-val" id="latParque">—</span>
+            </div>
+
+            <!-- 3. Acuerdo Ejecutivo -->
+            <div class="lateral-item">
+              <span class="lateral-item-label">Acuerdo Ejecutivo</span>
+              <span class="lateral-item-val" id="latAcuerdo">—</span>
+            </div>
+
+            <!-- 4. Analista Asignado -->
+            <div class="lateral-item">
+              <span class="lateral-item-label">Analista Asignado</span>
+              <span class="lateral-item-val" id="latAnalista">—</span>
+            </div>
+
+            <!-- 5. Días en Proceso -->
+            <div class="lateral-item">
+              <span class="lateral-item-label">Tiempo en Proceso</span>
+              <span class="lateral-item-val" id="latDias">—</span>
+            </div>
+
+            <!-- 6. Cantidad de Documentos -->
+            <div class="lateral-item">
+              <span class="lateral-item-label">Anexos y Documentos</span>
+              <span class="lateral-item-val" id="latDocumentos">—</span>
+            </div>
+          </div>
+        </aside>
+
+      </div>
+
+    </div>
   </main>
   <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
   <script src="../js/theme.js"></script>
   <script src="../js/ui.js"></script>
   <script src="../js/mobile-preview.js"></script>
+  <script src="../js/api.js"></script>
+  <script src="../js/historial.js"></script>
   <script src="../js/app.js"></script>
 </body>
 </html>
