@@ -1,0 +1,227 @@
+{
+  "zonas": [
+    {
+      "id": "zf-001",
+      "nombre": "Zona Franca Valle Central",
+      "inversionMinima": 150000,
+      "empleosMinimos": 10,
+      "sectoresPermitidos": ["tecnologia", "manufactura", "bpo", "logistica", "dispositivos-medicos"]
+    }
+  ],
+  "solicitudes": [
+    {
+      "id": "sol-001",
+      "empresa": "Nube Clara Solutions S.A.",
+      "cedulaJuridica": "FICT-3-101-000001",
+      "sector": "tecnologia",
+      "correo": "contacto@nubeclara.example",
+      "telefono": "+506 2000-0101",
+      "representante": "Valeria Solís Rojas",
+      "inversionProyectada": 480000,
+      "empleosProyectados": 42,
+      "descripcion": "Centro regional de desarrollo de software empresarial.",
+      "estado": "Recomendada",
+      "fecha": "2026-05-12",
+      "puntajeIA": 92,
+      "clasificacionIA": "Recomendada",
+      "justificacionIA": "Supera los requisitos de inversión y empleo.",
+      "decisionAnalista": "Aprobada",
+      "observacionesAnalista": "Plan financiero y operativo consistente.",
+      "fechaDecision": "2026-05-20"
+    },
+    {
+      "id": "sol-002",
+      "empresa": "Precisión Médica del Istmo S.R.L.",
+      "cedulaJuridica": "FICT-3-102-000002",
+      "sector": "dispositivos-medicos",
+      "correo": "tramites@precisionmedica.example",
+      "telefono": "+506 2000-0102",
+      "representante": "Daniel Araya Mora",
+      "inversionProyectada": 1250000,
+      "empleosProyectados": 85,
+      "descripcion": "Planta de ensamblaje de dispositivos de monitoreo médico.",
+      "estado": "Recomendada",
+      "fecha": "2026-05-18",
+      "puntajeIA": 96,
+      "clasificacionIA": "Recomendada",
+      "justificacionIA": "Excede ampliamente los compromisos mínimos.",
+      "decisionAnalista": "Aprobada",
+      "observacionesAnalista": "Aprobada según el cronograma presentado.",
+      "fechaDecision": "2026-05-27"
+    },
+    {
+      "id": "sol-003",
+      "empresa": "Ruta Verde Logística S.A.",
+      "cedulaJuridica": "FICT-3-101-000003",
+      "sector": "logistica",
+      "correo": "proyectos@rutaverde.example",
+      "telefono": "+506 2000-0103",
+      "representante": "Mauricio Brenes Vega",
+      "inversionProyectada": 310000,
+      "empleosProyectados": 28,
+      "descripcion": "Centro logístico de carga y distribución regional.",
+      "estado": "pendiente",
+      "fecha": "2026-07-02",
+      "puntajeIA": null,
+      "clasificacionIA": null,
+      "justificacionIA": null,
+      "decisionAnalista": null,
+      "observacionesAnalista": null,
+      "fechaDecision": null
+    },
+    {
+      "id": "sol-004",
+      "empresa": "Conecta BPO del Caribe S.A.",
+      "cedulaJuridica": "FICT-3-101-000004",
+      "sector": "bpo",
+      "correo": "administracion@conectabpo.example",
+      "telefono": "+506 2000-0104",
+      "representante": "Elena Vargas León",
+      "inversionProyectada": 175000,
+      "empleosProyectados": 60,
+      "descripcion": "Servicio bilingüe de soporte administrativo regional.",
+      "estado": "Revisar",
+      "fecha": "2026-07-08",
+      "puntajeIA": 68,
+      "clasificacionIA": "Revisar",
+      "justificacionIA": "La inversión está cerca del mínimo establecido.",
+      "decisionAnalista": null,
+      "observacionesAnalista": "Solicitar desglose del presupuesto.",
+      "fechaDecision": null
+    },
+    {
+      "id": "sol-005",
+      "empresa": "MicroEnsambles Ticos S.R.L.",
+      "cedulaJuridica": "FICT-3-102-000005",
+      "sector": "manufactura",
+      "correo": "gerencia@microensambles.example",
+      "telefono": "+506 2000-0105",
+      "representante": "Andrés Chacón Ruiz",
+      "inversionProyectada": 90000,
+      "empleosProyectados": 7,
+      "descripcion": "Ensamblaje de componentes para proveedores regionales.",
+      "estado": "Rechazada",
+      "fecha": "2026-06-10",
+      "puntajeIA": 35,
+      "clasificacionIA": "Rechazada",
+      "justificacionIA": "No alcanza los requisitos mínimos.",
+      "decisionAnalista": "Rechazada",
+      "observacionesAnalista": "Puede presentar un plan ampliado.",
+      "fechaDecision": "2026-06-17"
+    },
+    {
+      "id": "sol-006",
+      "empresa": "Analítica Bosque Digital S.A.",
+      "cedulaJuridica": "FICT-3-101-000006",
+      "sector": "tecnologia",
+      "correo": "info@bosquedigital.example",
+      "telefono": "+506 2000-0106",
+      "representante": "Sofía Quesada Campos",
+      "inversionProyectada": 260000,
+      "empleosProyectados": 24,
+      "descripcion": "Laboratorio de analítica para operaciones de exportación.",
+      "estado": "pendiente",
+      "fecha": "2026-08-04",
+      "puntajeIA": null,
+      "clasificacionIA": null,
+      "justificacionIA": null,
+      "decisionAnalista": null,
+      "observacionesAnalista": null,
+      "fechaDecision": null
+    }
+  ],
+  "empresas": [
+    {
+      "id": "emp-001",
+      "nombre": "Nube Clara Solutions S.A.",
+      "cedulaJuridica": "FICT-3-101-000001",
+      "sector": "tecnologia",
+      "zonaFrancaId": "zf-001",
+      "inversionComprometida": 480000,
+      "empleosComprometidos": 42,
+      "exportacionesComprometidas": 850000,
+      "estado": "activa"
+    },
+    {
+      "id": "emp-002",
+      "nombre": "Precisión Médica del Istmo S.R.L.",
+      "cedulaJuridica": "FICT-3-102-000002",
+      "sector": "dispositivos-medicos",
+      "zonaFrancaId": "zf-001",
+      "inversionComprometida": 1250000,
+      "empleosComprometidos": 85,
+      "exportacionesComprometidas": 2100000,
+      "estado": "activa"
+    }
+  ],
+  "reportes": [
+    {
+      "id": "rep-001",
+      "empresaId": "emp-001",
+      "periodo": "2026-Q1",
+      "empleosReales": 44,
+      "inversionEjecutada": 495000,
+      "exportaciones": 230000,
+      "fecha": "2026-04-15",
+      "estado": "cumple"
+    },
+    {
+      "id": "rep-002",
+      "empresaId": "emp-002",
+      "periodo": "2026-Q1",
+      "empleosReales": 82,
+      "inversionEjecutada": 1180000,
+      "exportaciones": 510000,
+      "fecha": "2026-04-18",
+      "estado": "en-revision"
+    }
+  ],
+  "evaluaciones": [
+    {
+      "id": "eva-001",
+      "solicitudId": "sol-001",
+      "puntaje": 92,
+      "clasificacion": "Recomendada",
+      "justificacion": "Supera los requisitos de inversión y empleo.",
+      "fecha": "2026-05-13"
+    },
+    {
+      "id": "eva-002",
+      "solicitudId": "sol-005",
+      "puntaje": 35,
+      "clasificacion": "Rechazada",
+      "justificacion": "No alcanza los requisitos mínimos.",
+      "fecha": "2026-06-11"
+    }
+  ],
+  "alertas": [
+    {
+      "id": "ale-001",
+      "empresaId": "emp-002",
+      "reporteId": "rep-002",
+      "tipo": "empleo",
+      "mensaje": "El empleo real está por debajo del compromiso.",
+      "prioridad": "media",
+      "fecha": "2026-04-19",
+      "estado": "abierta"
+    }
+  ],
+  "historial": [
+    {
+      "id": "his-001",
+      "empresaId": "emp-001",
+      "tipoEvento": "aprobacion",
+      "descripcion": "Ingreso aprobado en Zona Franca Valle Central.",
+      "fecha": "2026-05-20",
+      "responsable": "Analista de admisiones"
+    },
+    {
+      "id": "his-002",
+      "empresaId": "emp-002",
+      "tipoEvento": "alerta-generada",
+      "descripcion": "Alerta generada por diferencia en el compromiso de empleo.",
+      "fecha": "2026-04-19",
+      "responsable": "Sistema de cumplimiento"
+    }
+  ]
+}

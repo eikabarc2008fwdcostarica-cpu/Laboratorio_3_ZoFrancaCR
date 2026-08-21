@@ -1,22 +1,22 @@
-# Actualización visual global de ZoFranca CR
+# Correcciones técnicas e integración de ZoFranca CR
 
 ## ¿Qué hace este PR?
 
-Implementa la estructura visual compartida de ZoFranca CR con sidebar, header, componentes reutilizables, modo claro/oscuro y una vista previa móvil. También incorpora comportamiento responsive real para las siete páginas existentes.
+Restaura la API local en el puerto 3005, unifica la página de solicitudes con la interfaz compartida y corrige dependencias, navegación, iconografía, responsive y archivos rastreados por error.
 
 ## ¿Por qué?
 
-El proyecto necesitaba una base visual uniforme y adaptable antes de comenzar a desarrollar las funcionalidades de negocio y la integración con la API.
+La auditoría detectó que faltaban `db.json` y `json-server`, que `node_modules` estaba versionado y que la página de nueva solicitud estaba aislada del sistema visual global.
 
 ## ¿Cómo se probó?
 
 1. Ejecutar `npm start`.
-2. Abrir `http://localhost:3001`.
-3. Navegar entre las páginas y comprobar que muestran el sidebar y el header compartidos.
-4. Cambiar entre modo claro y modo oscuro, recargar la página y verificar que la preferencia se conserva.
-5. Activar `Vista móvil` y comprobar que la aplicación aparece dentro de un contenedor de aproximadamente 390 px.
-6. Pulsar `Salir de vista móvil` o la tecla `Escape` para regresar a la vista normal.
-7. Reducir manualmente el ancho del navegador para verificar el comportamiento responsive real.
+2. Ejecutar `npm run api` en una terminal y `npm start` en otra.
+3. Abrir `http://localhost:3001` y navegar entre las siete páginas.
+4. Enviar una solicitud y comprobar que aparece en `http://localhost:3005/solicitudes`.
+5. Verificar modo claro, modo oscuro, persistencia del tema y vista móvil.
+6. Reducir el ancho del navegador para comprobar el responsive real.
+7. Ejecutar `git ls-files node_modules` y confirmar que no devuelve archivos después de integrar el PR.
 
 ## Checklist
 

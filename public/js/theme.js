@@ -16,8 +16,9 @@
     const isDark = theme === 'dark';
     button.setAttribute('aria-pressed', String(isDark));
     button.setAttribute('aria-label', isDark ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro');
-    button.querySelector('[data-theme-icon]').textContent = isDark ? '☀' : '☾';
+    button.querySelector('[data-theme-icon]').setAttribute('data-lucide', isDark ? 'sun' : 'moon');
     button.querySelector('[data-theme-label]').textContent = isDark ? 'Modo claro' : 'Modo oscuro';
+    window.lucide?.createIcons();
   }
 
   applyTheme(getPreferredTheme());
