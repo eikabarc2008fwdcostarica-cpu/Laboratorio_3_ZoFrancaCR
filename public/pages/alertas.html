@@ -11,13 +11,83 @@
 </head>
 <body data-page="alertas">
   <main class="main-content">
-    <section class="page-heading"><div><h1>Alertas</h1><p>Centro de avisos y seguimiento.</p></div></section>
-    <section class="card section-placeholder"><div class="card-header"><div><h2 class="card-title">Centro de alertas</h2><p class="card-subtitle">Las alertas se conectarán en una fase posterior.</p></div><span class="badge badge-warning">Sin conectar</span></div></section>
+    <section class="page-heading">
+      <div><h1>Alertas y cumplimiento</h1><p>Monitoreo de reportes, compromisos y desviaciones empresariales.</p></div>
+      <button class="btn btn-secondary" id="generateAiSummary" type="button" disabled><i data-lucide="sparkles" aria-hidden="true"></i><span>Resumen IA</span></button>
+    </section>
+
+    <section class="card-grid dashboard-metrics" aria-label="Resumen de cumplimiento">
+      <article class="card metric-card"><span class="badge badge-info">Empresas monitoreadas</span><p class="metric-value" id="metricMonitored">—</p><p class="muted">Empresas registradas</p></article>
+      <article class="card metric-card"><span class="badge badge-success">Empresas en regla</span><p class="metric-value" id="metricCompliant">—</p><p class="muted">Sin desviaciones activas</p></article>
+      <article class="card metric-card"><span class="badge badge-danger">Empresas con alertas</span><p class="metric-value" id="metricAlerts">—</p><p class="muted">Requieren seguimiento</p></article>
+      <article class="card metric-card"><span class="badge badge-warning">Reportes pendientes</span><p class="metric-value" id="metricPending">—</p><p class="muted">Pendientes de validación</p></article>
+    </section>
+
+    <section class="alert alert-danger critical-alert" id="criticalAlert" aria-live="polite" hidden>
+      <i data-lucide="triangle-alert" aria-hidden="true"></i>
+      <div><strong>Alerta crítica</strong><p id="criticalAlertMessage"></p></div>
+    </section>
+
+    <section class="card ai-summary" id="aiSummary" aria-labelledby="aiSummaryTitle" hidden>
+      <div class="card-header"><div><h2 class="card-title" id="aiSummaryTitle">Apoyo analítico simulado</h2><p class="card-subtitle">Resumen generado exclusivamente con los datos locales disponibles.</p></div><span class="badge badge-info">No es una decisión automática</span></div>
+      <p id="aiSummaryText"></p>
+    </section>
+
+    <section class="card dashboard-table-card" aria-labelledby="monitoringTableTitle">
+      <div class="card-header">
+        <div><h2 class="card-title" id="monitoringTableTitle">Monitoreo empresarial</h2><p class="card-subtitle">Comparación de resultados reportados frente a compromisos.</p></div>
+      </div>
+
+      <div class="monitoring-filters" aria-label="Filtros de monitoreo">
+        <div class="form-group">
+          <label for="alertsSearch">Buscar empresa</label>
+          <input class="input" id="alertsSearch" type="search" placeholder="Nombre de la empresa" autocomplete="off">
+        </div>
+        <div class="form-group">
+          <label for="alertsStatusFilter">Estado</label>
+          <select class="select" id="alertsStatusFilter">
+            <option value="">Todos los estados</option>
+            <option value="En regla">En regla</option>
+            <option value="Alerta">Alerta</option>
+            <option value="Pendiente">Pendiente</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="alert monitoring-state" id="monitoringState" role="status" aria-live="polite">
+        <i class="spinner-icon" data-lucide="loader-circle" aria-hidden="true"></i>
+        <div><strong id="monitoringStateTitle">Cargando monitoreo</strong><p class="muted" id="monitoringStateMessage">Consultando empresas, reportes y alertas.</p></div>
+      </div>
+
+      <div class="table-container" id="monitoringTableContainer" hidden>
+        <table class="table table-responsive">
+          <thead>
+            <tr>
+              <th scope="col">Empresa</th>
+              <th scope="col">Periodo</th>
+              <th scope="col">Empleos actual/meta</th>
+              <th scope="col">Inversión</th>
+              <th scope="col">Exportaciones</th>
+              <th scope="col">Estado</th>
+              <th scope="col"><span class="visually-hidden">Acción</span></th>
+            </tr>
+          </thead>
+          <tbody id="monitoringTableBody"></tbody>
+        </table>
+      </div>
+
+      <nav class="pagination" id="alertsPagination" aria-label="Paginación del monitoreo" hidden>
+        <button class="btn btn-secondary" id="alertsPreviousPage" type="button">Anterior</button>
+        <span class="pagination-info" id="alertsPageInfo" aria-live="polite"></span>
+        <button class="btn btn-secondary" id="alertsNextPage" type="button">Siguiente</button>
+      </nav>
+    </section>
   </main>
   <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
   <script src="../js/theme.js"></script>
   <script src="../js/ui.js"></script>
   <script src="../js/mobile-preview.js"></script>
-  <script src="../js/app.js"></script>
+  <script src="../js/api.js"></script>
+  <script src="../js/alertas.js"></script>
 </body>
 </html>
