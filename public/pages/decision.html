@@ -11,13 +11,74 @@
 </head>
 <body data-page="solicitudes">
   <main class="main-content">
-    <section class="page-heading"><div><h1>Decisión de solicitud</h1><p>Espacio de evaluación para el analista.</p></div><a class="btn btn-secondary" href="nueva-solicitud.html">Ver solicitudes</a></section>
-    <section class="card section-placeholder"><div class="card-header"><div><h2 class="card-title">Evaluación</h2><p class="card-subtitle">Las herramientas de decisión se implementarán posteriormente.</p></div><span class="badge badge-info">Pendiente</span></div></section>
+    <section class="page-heading">
+      <div><h1>Decisión de solicitud</h1><p>Revise la recomendación de IA y registre la resolución humana.</p></div>
+      <a class="btn btn-secondary" href="index.html">Volver al Dashboard</a>
+    </section>
+
+    <div class="alert decision-state" id="decisionState" role="status" aria-live="polite">
+      <i class="spinner-icon" data-lucide="loader-circle" aria-hidden="true"></i>
+      <div><strong id="decisionStateTitle">Cargando expediente</strong><p class="muted" id="decisionStateMessage">Consultando la solicitud en la API local.</p></div>
+    </div>
+
+    <div class="decision-layout" id="decisionContent" hidden>
+      <section class="card" aria-labelledby="requestSummaryTitle">
+        <div class="card-header">
+          <div><h2 class="card-title" id="requestSummaryTitle">Resumen del expediente</h2><p class="card-subtitle">Información registrada para la evaluación.</p></div>
+          <span class="badge badge-info" id="requestStatus">Pendiente</span>
+        </div>
+        <dl class="request-summary">
+          <div><dt>Expediente</dt><dd id="requestId">—</dd></div>
+          <div><dt>Empresa</dt><dd id="requestCompany">—</dd></div>
+          <div><dt>Puntaje IA</dt><dd class="ia-score" id="requestScore">—</dd></div>
+          <div><dt>Recomendación IA</dt><dd><span class="badge badge-info" id="requestRecommendation">—</span></dd></div>
+        </dl>
+        <div class="justification-panel">
+          <h3>Justificación IA</h3>
+          <p id="requestJustification">Sin justificación disponible.</p>
+        </div>
+      </section>
+
+      <form class="card decision-form" id="decisionForm" novalidate>
+        <div class="card-header">
+          <div><h2 class="card-title">Resolución del analista</h2><p class="card-subtitle">La decisión humana prevalece sobre la recomendación automática.</p></div>
+          <span class="badge badge-warning" id="existingDecision">Sin registrar</span>
+        </div>
+
+        <fieldset class="decision-options">
+          <legend>Seleccione una resolución *</legend>
+          <label class="decision-option">
+            <input type="radio" name="resolution" value="confirm">
+            <span><strong>Confirmar recomendación</strong><small>Mantiene como estado final la sugerencia de IA.</small></span>
+          </label>
+          <label class="decision-option">
+            <input type="radio" name="resolution" value="review">
+            <span><strong>Cambiar a Revisar</strong><small>Envía el expediente a análisis adicional.</small></span>
+          </label>
+          <label class="decision-option">
+            <input type="radio" name="resolution" value="reject">
+            <span><strong>Rechazar solicitud</strong><small>Registra la solicitud como rechazada.</small></span>
+          </label>
+        </fieldset>
+        <span class="field-error decision-error" id="resolutionError"></span>
+
+        <div class="form-group">
+          <label for="analystObservations">Observaciones del analista <span id="observationsRequirement">(opcionales al confirmar)</span></label>
+          <textarea class="textarea" id="analystObservations" name="observations" placeholder="Detalle el fundamento de la resolución."></textarea>
+          <span class="field-error" id="observationsError"></span>
+        </div>
+
+        <div class="form-actions">
+          <button class="btn btn-primary" id="registerDecision" type="submit"><i data-lucide="save" aria-hidden="true"></i><span>Registrar decisión</span></button>
+        </div>
+      </form>
+    </div>
   </main>
   <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
   <script src="../js/theme.js"></script>
   <script src="../js/ui.js"></script>
   <script src="../js/mobile-preview.js"></script>
-  <script src="../js/app.js"></script>
+  <script src="../js/api.js"></script>
+  <script src="../js/decision.js"></script>
 </body>
 </html>
