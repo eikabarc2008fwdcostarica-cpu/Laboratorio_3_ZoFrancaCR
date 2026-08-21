@@ -87,6 +87,15 @@
   cursor: pointer;
 }
 
+.icon-btn svg,
+.btn svg,
+.alert > svg {
+  width: 19px;
+  height: 19px;
+  flex: 0 0 auto;
+  stroke-width: 2;
+}
+
 .notification-dot {
   position: absolute;
   top: 7px;
@@ -161,6 +170,20 @@
   font-weight: 680;
 }
 
+.form-group-full {
+  grid-column: 1 / -1;
+}
+
+.field-error {
+  min-height: 1rem;
+  color: var(--color-danger);
+  font-size: 0.78rem;
+}
+
+[aria-invalid="true"] {
+  border-color: var(--color-danger);
+}
+
 .input,
 .select,
 .textarea {
@@ -205,6 +228,32 @@
 .alert-success { border-left-color: var(--color-success); }
 .alert-warning { border-left-color: var(--color-warning); }
 .alert-danger { border-left-color: var(--color-danger); }
+
+.status-banner {
+  margin-bottom: 18px;
+}
+
+.status-banner[hidden] {
+  display: none;
+}
+
+.status-banner p {
+  margin: 3px 0 0;
+}
+
+.spinner-icon {
+  animation: icon-spin 800ms linear infinite;
+}
+
+@keyframes icon-spin {
+  to { transform: rotate(360deg); }
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 22px;
+}
 
 .section-placeholder {
   min-height: 220px;

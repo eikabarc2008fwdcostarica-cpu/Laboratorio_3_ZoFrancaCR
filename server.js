@@ -316,7 +316,7 @@ app.get('/historial', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'pages/historial.html'));
 });
 
-const PORT = 3001;
+const PORT = Number(process.env.ZOFRANCA_WEB_PORT) || 3001;
 app.listen(PORT, () => {
-  console.log(`Servidor corriendo en http://localhost:${PORT}`);
+    console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });

@@ -13,7 +13,7 @@
   <main class="main-content">
     <section class="page-heading">
       <div><h1>Dashboard</h1><p>Vista general de ZoFranca CR.</p></div>
-      <button class="btn btn-primary" type="button">Nueva solicitud</button>
+      <a class="btn btn-primary" href="nueva-solicitud.html">Nueva solicitud</a>
     </section>
     <section class="card-grid" aria-label="Resumen general">
       <article class="card"><span class="badge badge-info">Solicitudes</span><p class="metric-value">—</p><p class="muted">Resumen pendiente de datos</p></article>
@@ -21,10 +21,14 @@
       <article class="card"><span class="badge badge-warning">Alertas</span><p class="metric-value">—</p><p class="muted">Resumen pendiente de datos</p></article>
     </section>
     <section class="content-grid">
-      <article class="card section-placeholder"><div class="card-header"><div><h2 class="card-title">Actividad reciente</h2><p class="card-subtitle">Este espacio se completará en una fase posterior.</p></div><span class="badge badge-info">Próximamente</span></div></article>
-      <aside class="alert alert-success"><span aria-hidden="true">✓</span><div><strong>Estructura preparada</strong><p class="muted">La interfaz global está lista para recibir los datos.</p></div></aside>
+      <article class="card section-placeholder"><div class="card-header"><div><h2 class="card-title">Actividad reciente</h2><p class="card-subtitle">Este espacio se completará en una fase posterior.</p></div><a class="btn btn-secondary" href="decision.html">Revisar decisiones</a></div></article>
+      <aside class="alert alert-success"><i data-lucide="circle-check" aria-hidden="true"></i><div><strong>Estructura preparada</strong><p class="muted">La interfaz global está lista para recibir los datos.</p></div></aside>
+    </section>
+    <section class="card section-placeholder" id="configuracion">
+      <div class="card-header"><div><h2 class="card-title">Configuración</h2><p class="card-subtitle">Las preferencias generales se implementarán en una fase posterior.</p></div><span class="badge badge-info">Pendiente</span></div>
     </section>
   </main>
+  <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
   <script src="../js/theme.js"></script>
   <script src="../js/ui.js"></script>
   <script src="../js/mobile-preview.js"></script>
