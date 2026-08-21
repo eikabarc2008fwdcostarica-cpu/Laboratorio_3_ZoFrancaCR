@@ -32,6 +32,72 @@
   letter-spacing: -0.04em;
 }
 
+.dashboard-metrics {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.metric-card {
+  min-width: 0;
+}
+
+.dashboard-table-card {
+  margin-top: 18px;
+}
+
+.dashboard-filters {
+  display: grid;
+  grid-template-columns: minmax(220px, 2fr) repeat(2, minmax(160px, 1fr));
+  gap: 14px;
+  margin-bottom: 18px;
+  padding: 16px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-muted);
+}
+
+.dashboard-state {
+  margin-bottom: 16px;
+}
+
+.dashboard-state p {
+  margin: 3px 0 0;
+}
+
+.table-action {
+  color: var(--color-primary);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.table-action:hover {
+  text-decoration: underline;
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.pagination[hidden] {
+  display: none;
+}
+
+.pagination-info {
+  min-width: 105px;
+  color: var(--color-text-muted);
+  font-size: 0.88rem;
+  text-align: center;
+}
+
+.btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+  transform: none;
+}
+
 .btn {
   display: inline-flex;
   min-height: 42px;
