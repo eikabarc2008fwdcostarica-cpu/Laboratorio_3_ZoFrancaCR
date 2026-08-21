@@ -2,7 +2,7 @@
 
 ## ¿Qué hace este PR?
 
-Corrige la base técnica de ZoFranca CR y deja integrada la API simulada con la interfaz compartida. También normaliza el formulario de solicitudes, la navegación, la iconografía, el diseño responsive y el flujo de colaboración del equipo.
+Corrige la base técnica de ZoFranca CR, integra la API simulada con la interfaz compartida e implementa el Dashboard dinámico de solicitudes. También normaliza el formulario, la navegación, la iconografía, el diseño responsive y el flujo de colaboración del equipo.
 
 ### Cambios incluidos
 
@@ -20,10 +20,19 @@ Corrige la base técnica de ZoFranca CR y deja integrada la API simulada con la 
 - Se ajustaron los breakpoints responsive para escritorio, tablet y móvil.
 - Se preparó `node_modules` para dejar de ser rastreado por Git sin eliminarlo localmente.
 - Se actualizaron README, pasos de ejecución y reglas de colaboración.
+- Se conectó el Dashboard con el endpoint `/solicitudes` de la API local.
+- Se agregaron métricas dinámicas para total, recomendadas, en revisión y rechazadas.
+- Se implementó una tabla de solicitudes recientes ordenada por fecha.
+- Se agregó búsqueda por empresa y filtros por estado y sector.
+- Las opciones del filtro de sector se generan a partir de los datos disponibles.
+- Se agregó paginación simple de cinco solicitudes por página.
+- Cada solicitud permite navegar a `detalle.html?id=ID`.
+- Se implementaron los estados visuales Cargando, Error, Sin resultados y Datos disponibles.
+- El Dashboard mantiene compatibilidad con modo oscuro, responsive real y vista móvil.
 
 ## ¿Por qué?
 
-La auditoría técnica detectó que faltaban `db.json` y `json-server`, que `node_modules` estaba versionado y que existían diferencias entre los puertos documentados. También encontró una implementación aislada de la página de solicitudes que no reutilizaba el tema, los componentes ni la navegación global.
+La auditoría técnica detectó que faltaban `db.json` y `json-server`, que `node_modules` estaba versionado y que existían diferencias entre los puertos documentados. También encontró una implementación aislada de la página de solicitudes y un Dashboard con valores de ejemplo que no consumía los datos reales de la API.
 
 ## ¿Cómo se probó?
 
@@ -37,6 +46,11 @@ La auditoría técnica detectó que faltaban `db.json` y `json-server`, que `nod
 8. Cambiar entre modo claro y oscuro, recargar la página y confirmar que la preferencia se conserva.
 9. Activar y cerrar la vista móvil; probar también el responsive real reduciendo el navegador.
 10. Ejecutar `git ls-files node_modules` y confirmar que no devuelve archivos después de integrar el PR.
+11. Confirmar que el Dashboard muestra 6 solicitudes, 2 recomendadas, 1 en revisión y 1 rechazada con los datos iniciales.
+12. Buscar una solicitud por empresa y probar los filtros de estado y sector.
+13. Avanzar y retroceder entre las dos páginas de resultados.
+14. Abrir `Ver detalle` y confirmar que la URL contiene `detalle.html?id=ID`.
+15. Detener temporalmente la API y verificar que el Dashboard muestra un error amigable sin fallos no controlados.
 
 ## Checklist
 
@@ -49,3 +63,8 @@ La auditoría técnica detectó que faltaban `db.json` y `json-server`, que `nod
 - [x] No se rastrean nuevos archivos de `node_modules`
 - [x] La interfaz conserva modo claro, modo oscuro y vista móvil
 - [x] Se respetó el alcance asignado a cada integrante
+- [x] Las métricas del Dashboard se calculan desde la API
+- [x] La tabla permite buscar, filtrar y paginar solicitudes
+- [x] Los estados de carga, error, vacío y datos disponibles están implementados
+- [x] Las solicitudes enlazan al detalle utilizando su ID
+- [x] No se modificaron las páginas asignadas al otro desarrollador

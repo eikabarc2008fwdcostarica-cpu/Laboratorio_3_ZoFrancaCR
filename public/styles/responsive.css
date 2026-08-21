@@ -16,6 +16,10 @@
     grid-template-columns: 1fr 1fr;
   }
 
+  .decision-layout {
+    grid-template-columns: 1fr;
+  }
+
   .dashboard-filters .form-group:first-child {
     grid-column: 1 / -1;
   }
@@ -91,6 +95,7 @@
   .card-grid,
   .content-grid,
   .form-grid,
+  .request-summary,
   .dashboard-filters {
     grid-template-columns: 1fr;
   }
@@ -262,6 +267,11 @@ body.mobile-preview-active .table-container {
 }
 
 body.mobile-preview-active .dashboard-filters {
+  grid-template-columns: 1fr;
+}
+
+body.mobile-preview-active .decision-layout,
+body.mobile-preview-active .request-summary {
   grid-template-columns: 1fr;
 }
 
